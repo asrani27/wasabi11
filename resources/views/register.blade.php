@@ -100,7 +100,7 @@
     </div>
     <!-- Libs JS -->
     <!-- Tabler Core -->
-    <script src="/nf/dist/js/tabler.min.js?1692870487" defer></script>
+    
     <script type='text/javascript' src='http://code.jquery.com/jquery.min.js'></script>
     <script type='text/javascript'>
       $(function () {

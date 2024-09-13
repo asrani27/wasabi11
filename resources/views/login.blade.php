@@ -18,7 +18,6 @@
     <link href="/nf/dist/css/tabler-flags.min.css?1692870487" rel="stylesheet"/>
     <link href="/nf/dist/css/tabler-payments.min.css?1692870487" rel="stylesheet"/>
     <link href="/nf/dist/css/tabler-vendors.min.css?1692870487" rel="stylesheet"/>
-    <link href="/dist/css/demo.min.css?1692870487" rel="stylesheet"/>
     <style>
       @import url('https://rsms.me/inter/inter.css');
       :root {
@@ -90,9 +89,6 @@
       </div>
     </div>
     <!-- Libs JS -->
-    <!-- Tabler Core -->
-    <script src="./dist/js/tabler.min.js?1692870487" defer></script>
-    <script src="./dist/js/demo.min.js?1692870487" defer></script>
 
 
     <script src="https://challenges.cloudflare.com/turnstile/v0/api.js?onload=onloadTurnstileCallback" defer></script>
