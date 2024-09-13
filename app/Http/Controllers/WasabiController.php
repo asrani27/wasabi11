@@ -33,7 +33,7 @@ class WasabiController extends Controller
                 $path = $disk->putFileAs($extension, $file, $fileName);
 
                 $size = Storage::size($file) / 1024;
-                dd($size);
+
                 // delete chunked file
                 unlink($file->getPathname());
 
@@ -62,10 +62,16 @@ class WasabiController extends Controller
 
                 $originalName = $file->getClientOriginalName();
 
+                $size = $file->getSize();
+                if (round($size / 1000 / 1000) > 100) {
+                    return [
+                        'message' => 'Max Upload File Size 100MB',
+                        'status' => false,
+                    ];
+                }
+
                 $disk = Storage::disk('public');
                 $path = $disk->putFileAs($extension, $file, $fileName);
-
-                $size = $file->getSize();
 
                 $shortlink = Str::random(10);
 
@@ -87,7 +93,7 @@ class WasabiController extends Controller
                 unlink($file->getPathname());
 
                 return [
-                    'path' => asset('views/' . $shortlink . 'asdas'),
+                    'path' => asset('views/' . $shortlink),
                     'filename' => $originalName,
                 ];
             }

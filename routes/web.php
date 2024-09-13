@@ -68,7 +68,7 @@ Route::get('/coba', function () {
 //         'Wasabi'
 //     );
 // });
-Route::post('upload', [WasabiController::class, 'upload']);
+// Route::post('upload', [WasabiController::class, 'upload']);
 
 // Route::get('file-upload', function () {
 //     return view('welcome');

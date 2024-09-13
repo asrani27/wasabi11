@@ -106,7 +106,12 @@
     });
     resumable.assignBrowse(browseFile[0]);
     
-    resumable.on('fileAdded', function (file) { // trigger when file picked
+    resumable.on('fileAdded', function (file) {
+      if((file.size / 1000 / 1000) > 100){
+        alert('Max File Upload 100MB, please register to get unlimited')
+        file.cancel();  
+        location.reload();
+      }else{
         showProgress();
         $('#namaFile').text(file.fileName);
 
@@ -120,9 +125,8 @@
           }
           return false;
         });
-        resumable.upload() // to actually start uploading.
-
-        
+        resumable.upload() 
+      }
     });
     resumable.on('fileProgress', function (file) { 
         $('#linkPreview').text('...');
