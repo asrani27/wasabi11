@@ -19,7 +19,7 @@
                 </div>
                 <div class="text-secondary">
                     
-                    230.39 KB of unlimited
+                    {{round($usedStorage)}} MB of unlimited
                 </div>
               </div>
             </div>
@@ -40,7 +40,7 @@
                   Total Files
                 </div>
                 <div class="text-secondary">
-                  324
+                  {{$totalFiles}}
                 </div>
               </div>
             </div>
@@ -154,7 +154,7 @@
                     </td>
                     <td class="text-secondary"><a href="#" class="text-reset"> {{round($item->size/1000/1000)}} MB</a></td>
                     <td class="text-secondary">
-                      User
+                      {{$item->download}}
                     </td>
                     <td>
                         <div class="dropdown">
@@ -162,11 +162,11 @@
                               <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24" height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round" stroke-linejoin="round"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /><path d="M19 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" /></svg>
                             </a>
                             <div class="dropdown-menu dropdown-menu-end">
-                              <a class="dropdown-item" href="#">
+                              <a class="dropdown-item" href="/view/{{$item->short_file}}" target="_blank">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-folder-open"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 19l2.757 -7.351a1 1 0 0 1 .936 -.649h12.307a1 1 0 0 1 .986 1.164l-.996 5.211a2 2 0 0 1 -1.964 1.625h-14.026a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2h4l3 3h7a2 2 0 0 1 2 2v2" /></svg>
                                 View
                               </a>
-                              <a class="dropdown-item" href="/user/file/delete/{{$item->id}}">
+                              <a class="dropdown-item" href="/user/file/delete/{{$item->id}}" onclick="return confirm('Are you sure you want to delete this item?');">
                                 <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-trash"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>
                                 Delete
                               </a>
@@ -239,11 +239,12 @@
         response = JSON.parse(response)
         $('#browseFile').text('Browse Another File..');
         $('#browseFile').attr('disabled', false);
-        $('#namaFile').text(response.filename);
-        $('#linkPreview').text(response.path);
-        $('#videoPreview').attr('src', response.path);
-        $('.my-link').html('<a href='+response.path+'><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-folder-open"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 19l2.757 -7.351a1 1 0 0 1 .936 -.649h12.307a1 1 0 0 1 .986 1.164l-.996 5.211a2 2 0 0 1 -1.964 1.625h-14.026a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2h4l3 3h7a2 2 0 0 1 2 2v2" /></svg></a>');
-        $('.card-footer').show();
+        location.reload();
+        // $('#namaFile').text(response.filename);
+        // $('#linkPreview').text(response.path);
+        // $('#videoPreview').attr('src', response.path);
+        // $('.my-link').html('<a href='+response.path+'><svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-folder-open"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M5 19l2.757 -7.351a1 1 0 0 1 .936 -.649h12.307a1 1 0 0 1 .986 1.164l-.996 5.211a2 2 0 0 1 -1.964 1.625h-14.026a2 2 0 0 1 -2 -2v-11a2 2 0 0 1 2 -2h4l3 3h7a2 2 0 0 1 2 2v2" /></svg></a>');
+        // $('.card-footer').show();
     });
 
     resumable.on('fileError', function (file, response) { // trigger when there is any error

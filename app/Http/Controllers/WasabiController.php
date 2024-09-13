@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Helpers\UploadHandler;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use App\Jobs\ConvertVideoForDownloading;
+use App\Jobs\ConvertVideoForStreaming;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 
@@ -44,6 +46,8 @@ class WasabiController extends Controller
                 $new->size = $size;
                 $new->type = $extension;
                 $new->save();
+
+                ConvertVideoForStreaming::dispatch($new);
 
                 // delete chunked file
                 unlink($file->getPathname());
