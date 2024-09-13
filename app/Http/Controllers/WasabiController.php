@@ -16,6 +16,7 @@ class WasabiController extends Controller
     public function upload(Request $request)
     {
         if (Auth::check()) {
+
             $receiver = new FileReceiver('file', $request, HandlerFactory::classFromRequest($request));
             if (!$receiver->isUploaded()) {
                 // file not uploaded
@@ -31,8 +32,18 @@ class WasabiController extends Controller
 
                 $disk = Storage::disk('public');
                 $path = $disk->putFileAs($extension, $file, $fileName);
+                $shortlink = Str::random(10);
 
-                $size = Storage::size($file) / 1024;
+                $size = $file->getSize();
+
+                $new = new Upload();
+                $new->username = Auth::user()->id;
+                $new->original_file = $originalName;
+                $new->short_file = $shortlink;
+                $new->filename = $fileName;
+                $new->size = $size;
+                $new->type = $extension;
+                $new->save();
 
                 // delete chunked file
                 unlink($file->getPathname());

@@ -34,6 +34,7 @@ Route::get('/email/verification-notification', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/user/home', [UserController::class, 'home']);
+    Route::get('/user/file/delete/{id}', [UserController::class, 'deleteFile']);
 });
 Route::get('oauth/google', [LoginController::class, 'redirectToProvider'])->name('oauth.google');
 Route::get('oauth/google/callback', [LoginController::class, 'handleProviderCallback'])->name('oauth.google.callback');
