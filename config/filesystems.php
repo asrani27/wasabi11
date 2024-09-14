@@ -49,7 +49,6 @@ return [
             'root' => public_path('storage'),
             'url' => env('APP_URL') . '/public/storage',
             'visibility' => 'public',
-            'throw' => false,
         ],
 
         'uploads' => [
