@@ -34,7 +34,7 @@ class ConvertVideoForStreaming implements ShouldQueue
         $highBitrateFormat = (new X264)->setKiloBitrate(1080);
 
 
-        FFMpeg::fromDisk('videos')
+        FFMpeg::fromDisk('public')
             ->open($this->video->type . '/' . $this->video->filename)
             ->exportForHLS()
             ->addFormat($lowBitrateFormat)
