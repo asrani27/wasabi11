@@ -41,6 +41,6 @@ class ConvertVideoForStreaming implements ShouldQueue
             ->addFormat($midBitrateFormat)
             ->addFormat($highBitrateFormat)
             ->toDisk('stream')
-            ->save($this->video->short_file . '/' . $this->video->short_file . '_%05d.m3u8');
+            ->save($this->video->short_file . '/' . $this->video->short_file . '.m3u8');
     }
 }
