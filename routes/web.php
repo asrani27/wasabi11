@@ -45,33 +45,5 @@ Route::get('/logout', function () {
     Auth::logout();
     return redirect('/');
 });
-Route::get('/coba', function () {
-    return view('welcome4');
-});
-// Route::get('/coba2', function () {
-//     return view('welcome3');
-// });
-// Route::get('/demo', function () {
-//     return view('demo');
-// });
-// Route::get('/jqueryfileupload', function () {
-//     return view('uploader');
-// });
-//Media library routes
-// Route::get('/medialibrary', [MediaLibraryController::class, 'mediaLibrary'])->name('media-library');
 
-//FILE UPLOADS CONTROLER
-// Route::post('medialibrary/upload', [UploaderController::class, 'upload'])->name('file-upload');
-// Route::post('medialibrary/delete', [UploaderController::class, 'delete'])->name('file-delete');
-// Route::post('upload', function () {
-//     request()->file('file')->storeAs(
-//         'my-file',
-//         'Wasabi'
-//     );
-// });
-// Route::post('upload', [WasabiController::class, 'upload']);
-
-// Route::get('file-upload', function () {
-//     return view('welcome');
-// });
 Route::post('file-upload/upload-large-files', [WasabiController::class, 'upload'])->name('files.upload.large');

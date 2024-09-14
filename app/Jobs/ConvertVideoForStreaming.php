@@ -33,14 +33,14 @@ class ConvertVideoForStreaming implements ShouldQueue
         $midBitrateFormat  = (new X264)->setKiloBitrate(720);
         $highBitrateFormat = (new X264)->setKiloBitrate(1080);
 
-        $path = Storage::disk('public')->get($this->video->type . '/' . $this->video->filename);
-        dd($path);
+
         FFMpeg::fromDisk('public')
-            ->open('steve_howe.mp4')
+            ->open($this->video->type . '/' . $this->video->filename)
             ->exportForHLS()
             ->addFormat($lowBitrateFormat)
             ->addFormat($midBitrateFormat)
             ->addFormat($highBitrateFormat)
+            ->toDisk('stream')
             ->save('adaptive_steve.m3u8');
     }
 }
