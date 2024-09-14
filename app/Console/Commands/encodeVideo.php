@@ -34,8 +34,8 @@ class encodeVideo extends Command
 
         $this->info('Converting sample.mp4');
 
-        FFMpeg::fromDisk('uploads')
-            ->open('sample.mp4')
+        FFMpeg::fromDisk('public')
+            ->open('mp4/silaban_09a8efec835d11aee86b6ebb5fbfb9c3.mp4')
             ->exportForHLS()
             ->addFormat($lowBitrateFormat)
             ->addFormat($midBitrateFormat)
