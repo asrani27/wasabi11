@@ -8,6 +8,7 @@ use App\Http\Controllers\WasabiController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UploaderController;
 use App\Http\Controllers\MediaLibraryController;
+use App\Http\Controllers\ViewController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 
 Route::get('/', function () {
@@ -46,4 +47,5 @@ Route::get('/logout', function () {
     return redirect('/');
 });
 
+Route::get('/view/{id}', [ViewController::class, 'view']);
 Route::post('file-upload/upload-large-files', [WasabiController::class, 'upload'])->name('files.upload.large');
