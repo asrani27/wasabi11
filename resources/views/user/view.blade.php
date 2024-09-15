@@ -20,7 +20,7 @@
   poster="MY_VIDEO_POSTER.jpg"
   data-setup="{}"
 >
-  <source src="http://127.0.0.1:8000/stream/HEdYNQSlib/HEdYNQSlib.m3u8" type="application/x-mpegURL" />
+  <source src="/storage/stream/{{$data->short_file}}/{{$data->short_file}}.m3u8" type="application/x-mpegURL" />
 </video>
 
 <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
