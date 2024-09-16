@@ -28,14 +28,12 @@ class encodeVideo extends Command
      */
     public function handle()
     {
-        $lowBitrateFormat  = (new X264)->setKiloBitrate(480);
         $midBitrateFormat  = (new X264)->setKiloBitrate(720);
-        $highBitrateFormat = (new X264)->setKiloBitrate(1080);
 
-        $this->info('Converting sample.mp4');
+        $this->info('Converting sample.mkv');
 
         FFMpeg::fromDisk('public')
-            ->open('mp4/SampleVideo_1280x720_30mb_5a4c772c3c799d932a0fe92f71a1e561.mp4')
+            ->open('storage/mkv/Q.O.T.S01E10.720p.WEB-DL.H264-SEC_a4c01ebbf343076d3b5209292dcf197f.mkv')
             ->exportForHLS()
             ->addFormat($lowBitrateFormat)
             ->addFormat($midBitrateFormat)
