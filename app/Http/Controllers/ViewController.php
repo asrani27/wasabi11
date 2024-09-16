@@ -18,7 +18,7 @@ class ViewController extends Controller
             return view('user.view', compact('data'));
         } else {
             $data = Upload::where('short_file', $id)->first();
-            return view('user.view', compact('data'));
+            return view('view', compact('data'));
         }
     }
     public function stream($id)
