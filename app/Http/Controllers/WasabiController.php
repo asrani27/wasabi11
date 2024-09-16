@@ -7,9 +7,10 @@ use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Helpers\UploadHandler;
 use Illuminate\Support\Facades\Auth;
+use App\Jobs\ConvertVideoForStreaming;
 use Illuminate\Support\Facades\Storage;
 use App\Jobs\ConvertVideoForDownloading;
-use App\Jobs\ConvertVideoForStreaming;
+use ProtoneMedia\LaravelFFMpeg\FFMpeg\FFProbe;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 
@@ -36,6 +37,10 @@ class WasabiController extends Controller
                 $path = $disk->putFileAs($extension, $file, $fileName);
                 $shortlink = Str::random(10);
 
+                $ffprobe = FFProbe::create();
+                $video = $ffprobe->streams('https://vplayer.veenix.online/storage/' . $extension . '/' . $fileName)->videos()->first();
+                $res = $video->get('height');
+
                 $size = $file->getSize();
 
                 $new = new Upload();
@@ -45,6 +50,7 @@ class WasabiController extends Controller
                 $new->filename = $fileName;
                 $new->size = $size;
                 $new->type = $extension;
+                $new->resolusi = $res;
                 $new->save();
 
                 ConvertVideoForStreaming::dispatch($new);

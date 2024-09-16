@@ -42,9 +42,5 @@ class ConvertVideoForStreaming implements ShouldQueue
             ->addFormat($BitrateFormat)
             ->toDisk('videos')
             ->save('stream/' . $this->video->short_file . '/' . $this->video->short_file . '.m3u8');
-
-        $u = Upload::find($this->video->id);
-        $u->resolusi = 1080;
-        $u->save();
     }
 }
