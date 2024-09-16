@@ -5,6 +5,7 @@ namespace App\Console\Commands;
 use App\Models\Upload;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Console\Command;
+use ProtoneMedia\LaravelFFMpeg\FFMpeg\FFProbe;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class TestCommand extends Command
@@ -14,36 +15,33 @@ class TestCommand extends Command
      *
      * @var string
      */
-    protected $signature = 'app:test-command';
+    protected $signature = 'app:test-command {data}';
 
     /**
      * The console command description.
      *
      * @var string
      */
-    protected $description = 'Command description';
+    protected $description = 'Encode Video';
 
     /**
      * Execute the console command.
      */
     public function handle()
     {
-        $lowBitrateFormat  = (new X264)->setKiloBitrate(480);
-        $midBitrateFormat  = (new X264)->setKiloBitrate(720);
-        $highBitrateFormat = (new X264)->setKiloBitrate(1080);
+        $data = $this->argument('data');
+        dd($data);
+        $ffprobe = FFProbe::create();
+        $video = $ffprobe->streams('https://vplayer.veenix.online/storage/' . $this->video->type . '/' . $this->video->filename)->videos()->first();
+        $res = $video->get('height');
 
-        $this->info('Converting sample.mp4');
+        $BitrateFormat  = (new X264)->setKiloBitrate($res);
 
-        FFMpeg::fromDisk('public')
-            ->open('mp4/SampleVideo_1280x720_30mb_5a4c772c3c799d932a0fe92f71a1e561.mp4')
+        FFMpeg::fromDisk('videos')
+            ->open($this->video->type . '/' . $this->video->filename)
             ->exportForHLS()
-            ->addFormat($lowBitrateFormat)
-            ->addFormat($midBitrateFormat)
-            ->addFormat($highBitrateFormat)
-            ->onProgress(function ($progress) {
-                $this->info("Progress: {$progress}");
-            })
+            ->addFormat($BitrateFormat)
             ->toDisk('videos')
-            ->save('stream/sample/sample.m3u8');
+            ->save('stream/' . $this->video->short_file . '/' . $this->video->short_file . '.m3u8');
     }
 }

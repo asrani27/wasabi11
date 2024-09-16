@@ -47,8 +47,6 @@ Route::get('/logout', function () {
     Auth::logout();
     return redirect('/');
 });
-Route::get('/testing', function () {
-    Artisan::call('app:test-command');
-});
+Route::get('/testing', [WasabiController::class, 'convert']);
 Route::get('/view/{id}', [ViewController::class, 'view']);
 Route::post('file-upload/upload-large-files', [WasabiController::class, 'upload'])->name('files.upload.large');

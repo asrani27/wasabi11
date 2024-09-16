@@ -8,6 +8,7 @@ use Illuminate\Http\Request;
 use App\Helpers\UploadHandler;
 use Illuminate\Support\Facades\Auth;
 use App\Jobs\ConvertVideoForStreaming;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use App\Jobs\ConvertVideoForDownloading;
 use ProtoneMedia\LaravelFFMpeg\FFMpeg\FFProbe;
@@ -16,6 +17,11 @@ use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 
 class WasabiController extends Controller
 {
+    public function convert()
+    {
+        $data = Upload::find('9d053975-4584-451b-8e28-332f59c44ecc');
+        Artisan::call('app:test-command', ['data' => $data]);
+    }
     public function upload(Request $request)
     {
         if (Auth::check()) {
