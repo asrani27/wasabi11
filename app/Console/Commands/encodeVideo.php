@@ -42,8 +42,33 @@ class encodeVideo extends Command
         $width1080p = $video1080p->get('width');
         $height1080p = $video1080p->get('height');
 
+        $video720p = $ffprobe->streams('https://download.megaup.net/?idurl=0lixLaV5L89JKamcHXUbegKOGnRGybLeHGQbqUTMIaf5WY+OFKNHoGNF2GRBjTaxcv1EDXcFD7mkM2rhN5RIXzVaM4Q1l3EkI0f+AqZGvMoMhEI2X3RuN6J/OhPLXT6iUJepFl5BQbTn2RzrQRKJ+g==&idfilename=[nunadrama]_No.Gain.No.Love.%20E01.360p.mp4&idfilesize=134.63%20MB')->videos()->first();
+        $width720p = $video720p->get('width');
+        $height720p = $video720p->get('height');
+
+        $video480p = $ffprobe->streams('https://download.megaup.net/?idurl=0lixLaV5L89JKamcHXUbegKOGnRGybLeHGQbqUTMIaf5WY+OFKNHoGNF2GRBjTaxcv1EDXcFD7mkM2rhN5RIXzVaM4Q1l3EkI0f+AqZGvMoMhEI2X3RuN6J/OhPLXT6iUJepFl5BQbTn2RzrQRKJ+g==&idfilename=[nunadrama]_No.Gain.No.Love.%20E01.360p.mp4&idfilesize=134.63%20MB')->videos()->first();
+        $width480p = $video480p->get('width');
+        $height480p = $video480p->get('height');
+
+        $video320p = $ffprobe->streams('https://download.megaup.net/?idurl=0lixLaV5L89JKamcHXUbegKOGnRGybLeHGQbqUTMIaf5WY+OFKNHoGNF2GRBjTaxcv1EDXcFD7mkM2rhN5RIXzVaM4Q1l3EkI0f+AqZGvMoMhEI2X3RuN6J/OhPLXT6iUJepFl5BQbTn2RzrQRKJ+g==&idfilename=[nunadrama]_No.Gain.No.Love.%20E01.360p.mp4&idfilesize=134.63%20MB')->videos()->first();
+        $width320p = $video320p->get('width');
+        $height320p = $video320p->get('height');
         //$bitrate = $video->get('bit_rate');
-        dd($width4k, $height4k, $width2k, $height2k, $width1080p, $height1080p);
+        dd(
+            $width4k,
+            $height4k,
+            $width2k,
+            $height2k,
+            $width1080p,
+            $height1080p,
+            $width720p,
+            $height720p,
+            $width480p,
+            $height480p,
+            $width320p,
+            $height320p
+
+        );
 
 
         // $lowBitrateFormat  = (new X264)->setKiloBitrate(480);
