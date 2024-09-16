@@ -32,7 +32,7 @@ class encodeVideo extends Command
     public function handle()
     {
 
-        $this->info('Converting mkv to hls');
+        $this->info('Converting mkv to mp4');
         FFMpeg::fromDisk('videos')
             ->open('storage/mkv/Q.O.T.S01E10.720p.WEB-DL.H264-SEC_a4c01ebbf343076d3b5209292dcf197f.mkv')
             ->export()
