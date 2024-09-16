@@ -5,6 +5,7 @@ namespace App\Jobs;
 use App\Models\Upload;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Foundation\Queue\Queueable;
