@@ -34,7 +34,7 @@ class encodeVideo extends Command
         $width = $video->get('width');
         $height = $video->get('height');
         $bitrate = $video->get('bit_rate');
-        dd($width);
+        dd($width, $height, $bitrate);
         $this->info('Informasi sample.mp4');
         $this->info($width, $height, $bitrate);
 
