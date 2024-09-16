@@ -38,9 +38,9 @@ class encodeVideo extends Command
         $width2k = $video2k->get('width');
         $height2k = $video2k->get('height');
 
-        $video1080p = $ffprobe->streams('https://download.megaup.net/?idurl=0lixLaV5L89JKamcHXUbegKOGnRGybLeHGQbqUTMIaf5WY+OFKNHoGNF2GRBjTaxcv1EDXcFD7mkM2rhN5RIXzVaM4Q1l3EkI0f+AqZGvMoMhEI2X3RuN6J/OhPLXT6iUJepFl5BQbTn2RzrQRKJ+g==&idfilename=[nunadrama]_No.Gain.No.Love.%20E01.360p.mp4&idfilesize=134.63%20MB')->videos()->first();
-        $width1080p = $video1080p->get('width');
-        $height1080p = $video1080p->get('height');
+        // $video1080p = $ffprobe->streams('https://download.megaup.net/?idurl=0lixLaV5L89JKamcHXUbegKOGnRGybLeHGQbqUTMIaf5WY+OFKNHoGNF2GRBjTaxcv1EDXcFD7mkM2rhN5RIXzVaM4Q1l3EkI0f+AqZGvMoMhEI2X3RuN6J/OhPLXT6iUJepFl5BQbTn2RzrQRKJ+g==&idfilename=[nunadrama]_No.Gain.No.Love.%20E01.360p.mp4&idfilesize=134.63%20MB')->videos()->first();
+        // $width1080p = $video1080p->get('width');
+        // $height1080p = $video1080p->get('height');
 
         $video720p = $ffprobe->streams('https://vplayer.veenix.online/storage/mp4/silaban_ca62ca4e75b9199867422d6e2c10bf80.mp4')->videos()->first();
         $width720p = $video720p->get('width');
@@ -59,8 +59,8 @@ class encodeVideo extends Command
             $height4k,
             $width2k,
             $height2k,
-            $width1080p,
-            $height1080p,
+            // $width1080p,
+            // $height1080p,
             $width720p,
             $height720p,
             $width480p,
