@@ -38,7 +38,7 @@ class encodeVideo extends Command
         $width2k = $video2k->get('width');
         $height2k = $video2k->get('height');
 
-        $video1080p = $ffprobe->streams('https: //videos.pexels.com/video-files/26781689/12006396_1920_1080_24fps.mp4')->videos()->first();
+        $video1080p = $ffprobe->streams('https://videos.pexels.com/video-files/26781689/12006396_1920_1080_24fps.mp4')->videos()->first();
         $width1080p = $video1080p->get('width');
         $height1080p = $video1080p->get('height');
 
