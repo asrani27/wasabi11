@@ -28,19 +28,31 @@ class encodeVideo extends Command
      */
     public function handle()
     {
+
         $midBitrateFormat  = (new X264)->setKiloBitrate(720);
+        $ffmpeg = FFMpeg::create();
+        $video = $ffmpeg->open('http://vplayer.veenix.online/storage/mkv/Q.O.T.S01E10.720p.WEB-DL.H264-SEC_a4c01ebbf343076d3b5209292dcf197f.mkv');
 
         $this->info('Converting sample.mkv');
-
-        FFMpeg::fromDisk('public')
-            ->open('storage/mkv/Q.O.T.S01E10.720p.WEB-DL.H264-SEC_a4c01ebbf343076d3b5209292dcf197f.mkv')
-            ->exportForHLS()
+        $video->exportForHLS()
             ->addFormat($midBitrateFormat)
             ->onProgress(function ($progress) {
                 $this->info("Progress: {$progress}");
             })
             ->toDisk('videos')
             ->save('stream/sample/sample.m3u8');
+
+
+
+        // FFMpeg::fromDisk('public')
+        //     ->open('storage/mkv/Q.O.T.S01E10.720p.WEB-DL.H264-SEC_a4c01ebbf343076d3b5209292dcf197f.mkv')
+        //     ->exportForHLS()
+        //     ->addFormat($midBitrateFormat)
+        //     ->onProgress(function ($progress) {
+        //         $this->info("Progress: {$progress}");
+        //     })
+        //     ->toDisk('videos')
+        //     ->save('stream/sample/sample.m3u8');
         $this->info('Done');
     }
 }
