@@ -14,9 +14,15 @@ class ViewController extends Controller
         //Storage::disk('stream')->url($video->id . '.m3u8');
 
         if (Auth::check()) {
+            $update_views = Upload::where('short_file', $id)->first();
+            $update_views = $update_views->views + 1;
+            $update_views->save();
             $data = Upload::where('short_file', $id)->first();
             return view('user.view', compact('data'));
         } else {
+            $update_views = Upload::where('short_file', $id)->first();
+            $update_views->views = $update_views->views + 1;
+            $update_views->save();
             $data = Upload::where('short_file', $id)->first();
             return view('view', compact('data'));
         }
