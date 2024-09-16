@@ -19,7 +19,7 @@
             @if ($data->type != 'mp4')
             <div style="padding-top:10%; padding-bottom:10%"><strong>No Preview This File</strong></div>
             @else
-            <iframe style="width: 100%; height: 80%; overflow: hidden;" frameBorder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" src="/stream/{{$data->short_file}}"></iframe>
+            <iframe style="width: 100%; height: 80%; overflow: hidden;" frameBorder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" src="https://vplayer.veenix.online/stream/{{$data->short_file}}"></iframe>
             @endif
         </div>
 
