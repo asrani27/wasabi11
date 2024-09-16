@@ -29,18 +29,21 @@ class encodeVideo extends Command
     public function handle()
     {
 
-
-        $ffprobe4k = FFProbe::create();
-        $video4k = $ffprobe4k->streams('https://videos.pexels.com/video-files/1409899/1409899-uhd_2560_1440_25fps.mp4')->videos()->first();
+        $ffprobe = FFProbe::create();
+        $video4k = $ffprobe->streams('https://videos.pexels.com/video-files/1409899/1409899-uhd_2560_1440_25fps.mp4')->videos()->first();
         $width4k = $video4k->get('width');
         $height4k = $video4k->get('height');
 
-        $ffprobe2k = FFProbe::create();
-        $video2k = $ffprobe2k->streams('https://videos.pexels.com/video-files/28148648/12310798_1080_1920_30fps.mp4')->videos()->first();
+        $video2k = $ffprobe->streams('https://videos.pexels.com/video-files/15966208/15966208-uhd_2560_1440_60fps.mp4')->videos()->first();
         $width2k = $video2k->get('width');
         $height2k = $video2k->get('height');
+
+        $video1080p = $ffprobe->streams('https: //videos.pexels.com/video-files/26781689/12006396_1920_1080_24fps.mp4')->videos()->first();
+        $width1080p = $video1080p->get('width');
+        $height1080p = $video1080p->get('height');
+
         //$bitrate = $video->get('bit_rate');
-        dd($width4k, $height4k, $width2k, $height2k);
+        dd($width4k, $height4k, $width2k, $height2k, $width1080p, $height1080p);
 
 
         // $lowBitrateFormat  = (new X264)->setKiloBitrate(480);
