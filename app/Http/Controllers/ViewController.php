@@ -12,11 +12,13 @@ class ViewController extends Controller
     public function view($id)
     {
         //Storage::disk('stream')->url($video->id . '.m3u8');
+
         if (Auth::check()) {
             $data = Upload::where('short_file', $id)->first();
             return view('user.view', compact('data'));
         } else {
-            return view('view');
+            $data = Upload::where('short_file', $id)->first();
+            return view('user.view', compact('data'));
         }
     }
 }

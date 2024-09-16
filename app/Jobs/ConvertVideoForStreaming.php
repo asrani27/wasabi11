@@ -29,10 +29,10 @@ class ConvertVideoForStreaming implements ShouldQueue
     public function handle(): void
     {
 
+        
         $lowBitrateFormat  = (new X264)->setKiloBitrate(480);
         $midBitrateFormat  = (new X264)->setKiloBitrate(720);
         $highBitrateFormat = (new X264)->setKiloBitrate(1080);
-
 
         FFMpeg::fromDisk('videos')
             ->open($this->video->type . '/' . $this->video->filename)
