@@ -150,7 +150,7 @@
                   <tr>
                     <td><input class="form-check-input m-0 align-middle" type="checkbox" aria-label="Select invoice"></td>
                     <td class="text-secondary">
-                      <a href="#" class=""><strong>{{$item->original_file}}</strong></a>
+                      <a href="/view/{{$item->short_file}}" class=""><strong>{{$item->original_file}}</strong></a>
                     </td>
                     <td class="text-secondary"><a href="#" class="text-reset"> {{round($item->size/1000/1000)}} MB</a></td>
                     <td class="text-secondary">
