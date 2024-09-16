@@ -5,12 +5,10 @@ namespace App\Jobs;
 use App\Models\Upload;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Queue\SerializesModels;
-use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use ProtoneMedia\LaravelFFMpeg\FFMpeg\FFProbe;
 use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 
 class ConvertVideoForStreaming implements ShouldQueue
