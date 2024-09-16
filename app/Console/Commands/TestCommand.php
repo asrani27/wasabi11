@@ -30,18 +30,17 @@ class TestCommand extends Command
     public function handle()
     {
         $data = $this->argument('data');
-        dd($data);
         $ffprobe = FFProbe::create();
-        $video = $ffprobe->streams('https://vplayer.veenix.online/storage/' . $this->video->type . '/' . $this->video->filename)->videos()->first();
+        $video = $ffprobe->streams('https://vplayer.veenix.online/storage/' . $data->type . '/' . $data->filename)->videos()->first();
         $res = $video->get('height');
 
         $BitrateFormat  = (new X264)->setKiloBitrate($res);
 
         FFMpeg::fromDisk('videos')
-            ->open($this->video->type . '/' . $this->video->filename)
+            ->open($data->type . '/' . $data->filename)
             ->exportForHLS()
             ->addFormat($BitrateFormat)
             ->toDisk('videos')
-            ->save('stream/' . $this->video->short_file . '/' . $this->video->short_file . '.m3u8');
+            ->save('stream/' . $data->short_file . '/' . $data->short_file . '.m3u8');
     }
 }
