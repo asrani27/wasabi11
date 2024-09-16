@@ -35,9 +35,7 @@ class encodeVideo extends Command
         FFMpeg::fromDisk('public')
             ->open('storage/mkv/Q.O.T.S01E10.720p.WEB-DL.H264-SEC_a4c01ebbf343076d3b5209292dcf197f.mkv')
             ->exportForHLS()
-            ->addFormat($lowBitrateFormat)
             ->addFormat($midBitrateFormat)
-            ->addFormat($highBitrateFormat)
             ->onProgress(function ($progress) {
                 $this->info("Progress: {$progress}");
             })
