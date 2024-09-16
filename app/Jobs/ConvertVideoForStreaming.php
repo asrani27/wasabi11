@@ -44,7 +44,7 @@ class ConvertVideoForStreaming implements ShouldQueue
             ->save('stream/' . $this->video->short_file . '/' . $this->video->short_file . '.m3u8');
 
         $u = Upload::find($this->video->id);
-        $u->res = 'tes bangsad';
+        $u->resolusi = 1080;
         $u->save();
     }
 }
