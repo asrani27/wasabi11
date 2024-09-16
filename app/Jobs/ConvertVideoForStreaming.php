@@ -29,12 +29,11 @@ class ConvertVideoForStreaming implements ShouldQueue
      */
     public function handle(): void
     {
+        // $ffprobe = FFProbe::create();
+        // $video = $ffprobe->streams('https://vplayer.veenix.online/storage/' . $this->video->type . '/' . $this->video->filename)->videos()->first();
+        // $res = $video->get('height');
 
-        $ffprobe = FFProbe::create();
-        $video = $ffprobe->streams('https://vplayer.veenix.online/storage/' . $this->video->type . '/' . $this->video->filename)->videos()->first();
-        $res = $video->get('height');
-
-        $BitrateFormat  = (new X264)->setKiloBitrate($res);
+        $BitrateFormat  = (new X264)->setKiloBitrate($this->video->type);
 
         FFMpeg::fromDisk('videos')
             ->open($this->video->type . '/' . $this->video->filename)
