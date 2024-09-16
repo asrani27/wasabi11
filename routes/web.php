@@ -10,6 +10,7 @@ use App\Http\Controllers\UploaderController;
 use App\Http\Controllers\MediaLibraryController;
 use App\Http\Controllers\ViewController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
+use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', function () {
     return view('welcome2');
@@ -46,6 +47,8 @@ Route::get('/logout', function () {
     Auth::logout();
     return redirect('/');
 });
-
+Route::get('/testing', function () {
+    Artisan::call('app:test-command');
+});
 Route::get('/view/{id}', [ViewController::class, 'view']);
 Route::post('file-upload/upload-large-files', [WasabiController::class, 'upload'])->name('files.upload.large');
