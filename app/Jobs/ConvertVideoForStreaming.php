@@ -33,7 +33,7 @@ class ConvertVideoForStreaming implements ShouldQueue
         $ffprobe = FFProbe::create();
         $video = $ffprobe->streams('https://vplayer.veenix.online/storage/' . $this->video->type . '/' . $this->video->filename)->videos()->first();
         $res = $video->get('height');
-        $u = $this->video;
+        $u = Upload::find($this->video->id);
         $u->res = $res;
         $u->save();
 
