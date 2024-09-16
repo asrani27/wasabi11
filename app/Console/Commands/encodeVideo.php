@@ -34,7 +34,7 @@ class encodeVideo extends Command
         $ffmpeg = FFMpeg::create();
         $video = $ffmpeg->open('http://vplayer.veenix.online/storage/mkv/Q.O.T.S01E10.720p.WEB-DL.H264-SEC_a4c01ebbf343076d3b5209292dcf197f.mkv');
 
-        $outputPath = Storage::disk('videos') . '/stream/sample/sample.m3u8';
+        $outputPath = public_path() . '/stream/sample/sample.m3u8';
         $this->info('Converting sample.mkv');
         $video->hls()->save($outputPath);
 
