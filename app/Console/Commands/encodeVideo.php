@@ -30,7 +30,7 @@ class encodeVideo extends Command
     {
 
         $ffprobe = FFProbe::create();
-        $video = $ffprobe->streams('/uploads/sample.mp4')->videos()->first();
+        $video = $ffprobe->streams('https://vplayer.veenix.online/uploads/sample.mp4')->videos()->first();
         $width = $video->get('width');
         $height = $video->get('height');
         $bitrate = $video->get('bit_rate');
