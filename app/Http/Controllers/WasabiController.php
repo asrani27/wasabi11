@@ -20,8 +20,7 @@ class WasabiController extends Controller
     public function convert()
     {
         $data = Upload::find('9d053975-4584-451b-8e28-332f59c44ecc');
-
-        Artisan::call('app:test-command', ['data' => $data]);
+        ConvertVideoForStreaming::dispatch($data);
     }
     public function upload(Request $request)
     {
