@@ -33,7 +33,7 @@
     height="360"
     data-setup="{}">
       
-            <source src="/storage/stream/{{$data->short_file}}/{{$data->short_file}}.m3u8" type="application/x-mpegURL" />
+            <source src="/storage/stream/{{$data->short_file}}/{{$data->short_file}}_0_{{$data->resolusi}}.m3u8" type="application/x-mpegURL" />
     </video>
 </div>
 
