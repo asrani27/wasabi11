@@ -34,6 +34,7 @@ class encodeVideo extends Command
         $width = $video->get('width');
         $height = $video->get('height');
         $bitrate = $video->get('bit_rate');
+        $this->info('Informasi sample.mp4');
         $this->info($width, $height, $bitrate);
 
         // $lowBitrateFormat  = (new X264)->setKiloBitrate(480);
