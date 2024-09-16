@@ -29,14 +29,18 @@ class encodeVideo extends Command
     public function handle()
     {
 
+
         $ffprobe = FFProbe::create();
-        $video = $ffprobe->streams('https://vplayer.veenix.online/uploads/sample.mp4')->videos()->first();
-        $width = $video->get('width');
-        $height = $video->get('height');
-        $bitrate = $video->get('bit_rate');
-        dd($width, $height, $bitrate);
-        $this->info('Informasi sample.mp4');
-        $this->info($width, $height, $bitrate, $video);
+        $video4k = $ffprobe->streams('https: //videos.pexels.com/video-files/1409899/1409899-uhd_2560_1440_25fps.mp4')->videos()->first();
+        $width4k = $video4k->get('width');
+        $height4k = $video4k->get('height');
+
+        $video2k = $ffprobe->streams('https://videos.pexels.com/video-files/28148648/12310798_1080_1920_30fps.mp4')->videos()->first();
+        $width2k = $video2k->get('width');
+        $height2k = $video2k->get('height');
+        //$bitrate = $video->get('bit_rate');
+        dd($width4k, $height4k, $width2k, $height2k);
+
 
         // $lowBitrateFormat  = (new X264)->setKiloBitrate(480);
         // $midBitrateFormat  = (new X264)->setKiloBitrate(720);
