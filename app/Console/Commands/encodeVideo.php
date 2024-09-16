@@ -2,12 +2,12 @@
 
 namespace App\Console\Commands;
 
-use FFMpeg\FFMpeg;
 use FFMpeg\Format\Video\X264;
 use Illuminate\Console\Command;
 use Symfony\Component\Process\Process;
 use Illuminate\Support\Facades\Storage;
 use ProtoneMedia\LaravelFFMpeg\FFMpeg\FFProbe;
+use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 use Symfony\Component\Process\Exception\ProcessFailedException;
 
 class encodeVideo extends Command
@@ -33,35 +33,13 @@ class encodeVideo extends Command
     {
 
         $this->info('Converting mkv to hls');
+        FFMpeg::fromDisk('videos')
+            ->open('storage/mkv/Q.O.T.S01E10.720p.WEB-DL.H264-SEC_a4c01ebbf343076d3b5209292dcf197f.mkv')
+            ->export()
+            ->toDisk('videos')
+            ->inFormat(new \FFMpeg\Format\Video\X264)
+            ->save('storage/mkv/Q.O.T.S01E10.720p.WEB-DL.H264-SEC_a4c01ebbf343076d3b5209292dcf197f.mp4');
 
-        $inputPath = 'http://vplayer.veenix.online/storage/mkv/Q.O.T.S01E10.720p.WEB-DL.H264-SEC_a4c01ebbf343076d3b5209292dcf197f.mkv';
-        $outputPath = public_path() . '/stream/sample/sample.m3u8';
-
-        $process = new Process([
-            'ffmpeg',
-            '-i',
-            $inputPath,
-            '-codec:',
-            'copy',
-            '-start_number',
-            '0',
-            '-hls_time',
-            '10',
-            '-hls_list_size',
-            '0',
-            '-f',
-            'hls',
-            $outputPath
-        ]);
-        // Jalankan perintah
-        $process->run();
-
-        // Periksa apakah proses gagal
-        if (!$process->isSuccessful()) {
-            throw new ProcessFailedException($process);
-        }
-
-        return response()->json(['success' => 'Video converted to HLS successfully']);
         // return response()->json(['success' => 'Video converted to HLS successfully']);
         // // $midBitrateFormat  = (new X264)->setKiloBitrate(720);
         // $ffmpeg = FFMpeg::create();
