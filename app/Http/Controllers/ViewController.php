@@ -15,7 +15,7 @@ class ViewController extends Controller
 
         if (Auth::check()) {
             $update_views = Upload::where('short_file', $id)->first();
-            $update_views = $update_views->views + 1;
+            $update_views->views = $update_views->views + 1;
             $update_views->save();
             $data = Upload::where('short_file', $id)->first();
             return view('user.view', compact('data'));
