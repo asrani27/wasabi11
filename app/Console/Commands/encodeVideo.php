@@ -38,7 +38,7 @@ class encodeVideo extends Command
         $width2k = $video2k->get('width');
         $height2k = $video2k->get('height');
 
-        $video1080p = $ffprobe->streams('https://s5.krakenfiles.com/video/uploads/26-08-2024/1JenR3Vi8M/file.mp4?md5=AUizsDlf_wDOHZ-NFEwtUQ&expires=1726462593')->videos()->first();
+        $video1080p = $ffprobe->streams('https://download.megaup.net/?idurl=0lixLaV5L89JKamcHXUbegKOGnRGybLeHGQbqUTMIaf5WY+OFKNHoGNF2GRBjTaxcv1EDXcFD7mkM2rhN5RIXzVaM4Q1l3EkI0f+AqZGvMoMhEI2X3RuN6J/OhPLXT6iUJepFl5BQbTn2RzrQRKJ+g==&idfilename=[nunadrama]_No.Gain.No.Love.%20E01.360p.mp4&idfilesize=134.63%20MB')->videos()->first();
         $width1080p = $video1080p->get('width');
         $height1080p = $video1080p->get('height');
 
