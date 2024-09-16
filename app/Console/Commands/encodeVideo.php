@@ -31,7 +31,7 @@ class encodeVideo extends Command
 
 
         $ffprobe = FFProbe::create();
-        $video4k = $ffprobe->streams('https: //videos.pexels.com/video-files/1409899/1409899-uhd_2560_1440_25fps.mp4')->videos()->first();
+        $video4k = $ffprobe->streams('https://videos.pexels.com/video-files/1409899/1409899-uhd_2560_1440_25fps.mp4')->videos()->first();
         $width4k = $video4k->get('width');
         $height4k = $video4k->get('height');
 
