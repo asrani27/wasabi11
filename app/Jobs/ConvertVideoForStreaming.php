@@ -37,7 +37,6 @@ class ConvertVideoForStreaming implements ShouldQueue
         $u = Upload::find($this->video->id);
         $u->res = $res;
         $u->save();
-        dd($u);
 
         $BitrateFormat  = (new X264)->setKiloBitrate($res);
 
