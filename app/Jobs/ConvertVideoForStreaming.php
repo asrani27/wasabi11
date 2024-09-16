@@ -31,8 +31,11 @@ class ConvertVideoForStreaming implements ShouldQueue
     {
 
         $ffprobe = FFProbe::create();
-        $video = $ffprobe->streams('https://vplayer.veenix.online/storage/'.$this->video->type . '/' . $this->video->filename)->videos()->first();
+        $video = $ffprobe->streams('https://vplayer.veenix.online/storage/' . $this->video->type . '/' . $this->video->filename)->videos()->first();
         $res = $video->get('height');
+        $u = $this->video;
+        $u->res = $res;
+        $u->save();
 
         $BitrateFormat  = (new X264)->setKiloBitrate($res);
 
