@@ -59,7 +59,9 @@ class WasabiController extends Controller
                 $new->resolusi = $res;
                 $new->save();
 
-                ConvertVideoForStreaming::dispatch($new);
+                if ($extension == 'mp4') {
+                    ConvertVideoForStreaming::dispatch($new);
+                }
 
                 // delete chunked file
                 unlink($file->getPathname());
