@@ -43,9 +43,13 @@ class WasabiController extends Controller
                 $path = $disk->putFileAs($extension, $file, $fileName);
                 $shortlink = Str::random(10);
 
-                $ffprobe = FFProbe::create();
-                $video = $ffprobe->streams('https://vplayer.veenix.online/storage/' . $extension . '/' . $fileName)->videos()->first();
-                $res = $video->get('height');
+                if ($extension == 'mp4') {
+                    $ffprobe = FFProbe::create();
+                    $video = $ffprobe->streams('https://vplayer.veenix.online/storage/' . $extension . '/' . $fileName)->videos()->first();
+                    $res = $video->get('height');
+                } else {
+                    $res = null;
+                }
 
                 $size = $file->getSize();
 
@@ -61,6 +65,9 @@ class WasabiController extends Controller
 
                 if ($extension == 'mp4') {
                     ConvertVideoForStreaming::dispatch($new);
+                    ConvertVideoForDownloading::dispatch($new);
+                } else {
+                    ConvertVideoForDownloading::dispatch($new);
                 }
 
                 // delete chunked file

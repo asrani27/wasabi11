@@ -23,11 +23,13 @@
             @endif
         </div>
 
+        @if ($data->type == 'mp4')
         <div class="card-footer">
             <strong>Embed Code :</strong>
             <textarea class="form-control" disabled rows="4"><iframe height="360" width="640" frameBorder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" src="https://vplayer.veenix.online/stream/{{$data->short_file}}"></iframe>
             </textarea>
         </div>
+        @endif
     </div>
 </div>
 

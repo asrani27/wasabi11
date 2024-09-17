@@ -2,22 +2,23 @@
 
 namespace App\Jobs;
 
+use App\Models\Upload;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Queue\InteractsWithQueue;
+use Illuminate\Foundation\Queue\Queueable;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Foundation\Bus\Dispatchable;
-use Illuminate\Foundation\Queue\Queueable;
-use Illuminate\Queue\InteractsWithQueue;
-use Illuminate\Queue\SerializesModels;
 
 class ConvertVideoForDownloading implements ShouldQueue
 {
-    use Queueable;
+    use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
-    /**
-     * Create a new job instance.
-     */
-    public function __construct()
+    public $file;
+
+    public function __construct(Upload $file)
     {
-        //
+        $this->file = $file;
     }
 
     /**
@@ -25,6 +26,9 @@ class ConvertVideoForDownloading implements ShouldQueue
      */
     public function handle(): void
     {
-        //
+
+        $files = Storage::disk('public')->get($this->file->type . '/' . $this->file->original_file);
+
+        dd(Storage::disk('wasabi')->put('public/' . $this->file->type . '/' . $this->file->original_file, $files));
     }
 }
