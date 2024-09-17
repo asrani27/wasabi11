@@ -67,6 +67,10 @@ class WasabiController extends Controller
                     ConvertVideoForStreaming::dispatch($new);
                     ConvertVideoForDownloading::dispatch($new);
                 } else {
+
+                    $files = Storage::disk('public')->get($new->type . '/' . $new->filename);
+                    dd(Storage::disk('public')->get($new->type . '/' . $new->filename), $new->type, $new->filename);
+                    dd(Storage::disk('wasabi')->put('public/' . $this->file->type . '/' . $this->file->filename, $files));
                     ConvertVideoForDownloading::dispatch($new);
                 }
 
