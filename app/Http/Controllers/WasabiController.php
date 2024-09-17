@@ -42,7 +42,7 @@ class WasabiController extends Controller
                 $disk = Storage::disk('public');
                 $path = $disk->putFileAs($extension, $file, $fileName);
                 $shortlink = Str::random(10);
-
+                dd($extension);
                 if ($extension == 'mp4') {
                     $ffprobe = FFProbe::create();
                     $video = $ffprobe->streams('https://vplayer.veenix.online/storage/' . $extension . '/' . $fileName)->videos()->first();
