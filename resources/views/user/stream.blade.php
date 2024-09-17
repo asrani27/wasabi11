@@ -58,6 +58,23 @@
         window.open(adUrl,'_blank');
         window.focus();
     });
+    // Tambahkan event listener untuk mendeteksi tombol ditekan
+    document.addEventListener('keydown', function(event) {
+        // Dapatkan kode tombol yang ditekan
+        var key = event.key;
+
+        // Jika tombol panah kanan ditekan, skip forward 5 detik
+        if (key === 'ArrowRight') {
+            var currentTime = player.currentTime();
+            player.currentTime(currentTime + 5);
+        }
+
+        // Jika tombol panah kiri ditekan, skip backward 5 detik
+        if (key === 'ArrowLeft') {
+            var currentTime = player.currentTime();
+            player.currentTime(currentTime - 5);
+        }
+    });
     
     player.on('ended', function() {
         player.currentTime(0);
