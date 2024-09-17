@@ -18,6 +18,8 @@ class ViewController extends Controller
             $update_views->views = $update_views->views + 1;
             $update_views->save();
             $data = Upload::where('short_file', $id)->first();
+            $files = Storage::disk('stream')->allFiles($update_views->short_file);
+            dd($files);
             return view('user.view', compact('data'));
         } else {
             $update_views = Upload::where('short_file', $id)->first();
