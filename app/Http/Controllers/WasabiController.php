@@ -147,11 +147,6 @@ class WasabiController extends Controller
     {
         $data = Upload::find($id);
 
-        // $headers = [
-        //     'Content-Type'        => 'application/zip',
-        //     'Content-Disposition' => 'attachment; filename="' . $data->filename . '"',
-        // ];
-
         return redirect(Storage::disk('wasabi')->temporaryUrl(
             "public/" . $data->type . "/" . $data->filename,
             now()->addMinutes(5),

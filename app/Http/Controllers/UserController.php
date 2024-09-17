@@ -22,8 +22,9 @@ class UserController extends Controller
     public function deleteFile($id)
     {
         $data = Upload::find($id);
-        Storage::disk('public')->delete($data->type . '/' . $data->filename);
+
+        Storage::disk('wasabi')->delete('public/' . $data->type . '/' . $data->filename);
         $data->delete();
-        return back()->with('success', 'upload success');
+        return back()->with('success', 'delete success');
     }
 }
