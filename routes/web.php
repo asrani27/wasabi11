@@ -49,5 +49,6 @@ Route::get('/logout', function () {
 });
 Route::get('/testing', [WasabiController::class, 'convert']);
 Route::get('/stream/{id}', [ViewController::class, 'stream']);
+Route::get('/download/{id}', [WasabiController::class, 'download']);
 Route::get('/view/{id}', [ViewController::class, 'view']);
 Route::post('file-upload/upload-large-files', [WasabiController::class, 'upload'])->name('files.upload.large');

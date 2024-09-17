@@ -67,10 +67,6 @@ class WasabiController extends Controller
                     ConvertVideoForStreaming::dispatch($new);
                     ConvertVideoForDownloading::dispatch($new);
                 } else {
-
-                    $files = Storage::disk('public')->get($new->type . '/' . $new->filename);
-                    dd(Storage::disk('public')->get($new->type . '/' . $new->filename), $new->type, $new->filename);
-                    dd(Storage::disk('wasabi')->put('public/' . $this->file->type . '/' . $this->file->filename, $files));
                     ConvertVideoForDownloading::dispatch($new);
                 }
 
@@ -144,5 +140,24 @@ class WasabiController extends Controller
                 'status' => true,
             ];
         }
+    }
+
+    public function download($id)
+    {
+        $data = Upload::find($id);
+
+        // $headers = [
+        //     'Content-Type'        => 'application/zip',
+        //     'Content-Disposition' => 'attachment; filename="' . $data->filename . '"',
+        // ];
+
+        return redirect(Storage::disk('wasabi')->temporaryUrl(
+            "public/" . $data->type . "/" . $data->filename,
+            now()->addMinutes(5),
+            [
+                'ResponseContentType' => 'application/octet-stream',
+                'ResponseContentDisposition' => 'attachment'
+            ]
+        ));
     }
 }
