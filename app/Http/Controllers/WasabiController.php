@@ -106,6 +106,7 @@ class WasabiController extends Controller
                     ];
                 }
 
+                dd($extension);
                 $disk = Storage::disk('public');
                 $path = $disk->putFileAs($extension, $file, $fileName);
 
