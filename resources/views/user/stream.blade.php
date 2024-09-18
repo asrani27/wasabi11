@@ -40,7 +40,7 @@
     data-setup="{}">
             <source src="{{$public}}" type="application/x-mpegURL" />      
             {{-- <source src="http://localhost:8000/storage/stream/{{$data->short_file}}/{{$data->short_file}}_0_{{$data->resolusi}}.m3u8" type="application/x-mpegURL" /> --}}
-            <track kind="captions" src="/srt/deadpool.vtt" srclang="id" label="Indonesia" default>
+            {{-- <track kind="captions" src="/srt/deadpool.vtt" srclang="id" label="Indonesia" default> --}}
     </video>
 </div>
 
