@@ -65,9 +65,9 @@ class WasabiController extends Controller
 
                 if ($extension == 'mp4') {
                     ConvertVideoForStreaming::dispatch($new);
-                    ConvertVideoForDownloading::dispatch($new);
+                    //ConvertVideoForDownloading::dispatch($new);
                 } else {
-                    ConvertVideoForDownloading::dispatch($new);
+                    //ConvertVideoForDownloading::dispatch($new);
                 }
 
                 // delete chunked file
@@ -147,12 +147,14 @@ class WasabiController extends Controller
     {
         $data = Upload::find($id);
 
-        return redirect(Storage::disk('wasabi')->temporaryUrl(
-            "public/" . $data->type . "/" . $data->filename,
-            now()->addHour(),
-            [
-                'ResponseContentDisposition' => 'attachment'
-            ]
-        ));
+        return Storage::download("public/" . $data->type . "/" . $data->filename);
+
+        // return redirect(Storage::disk('wasabi')->temporaryUrl(
+        //     "public/" . $data->type . "/" . $data->filename,
+        //     now()->addHour(),
+        //     [
+        //         'ResponseContentDisposition' => 'attachment'
+        //     ]
+        // ));
     }
 }

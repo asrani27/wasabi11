@@ -40,12 +40,9 @@ class ConvertVideoForStreaming implements ShouldQueue
 
         $allFiles = Storage::disk('videos')->allFiles($this->video->shot_file);
 
-        foreach ($allFiles as $key => $file) {
-            $data = Storage::disk('videos')->get($file);
-            Storage::disk('wasabi')->put($file, $data);
-        }
-
-        //delete di local]
-        // Storage::disk('public')->delete($this->file->type . '/' . $this->file->filename);
+        // foreach ($allFiles as $key => $file) {
+        //     $data = Storage::disk('videos')->get($file);
+        //     Storage::disk('wasabi')->put($file, $data);
+        // }
     }
 }
