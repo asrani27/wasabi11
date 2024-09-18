@@ -28,8 +28,8 @@
 
                 <small>File size limit: 100 MB <br/>Please Register to get unlimited upload<br/></small></p>
                 
-                
-                <button id="browseFile" class="btn btn-outline-primary">Browse File...</button>
+                <a href="/login" class="btn btn btn-outline-primary">LOGIN</a> OR <a href="/register" class="btn btn btn-outline-primary">REGISTER</a> 
+                {{-- <button id="browseFile" class="btn btn-outline-primary">Browse File...</button> --}}
             </div>
             
           </div>
@@ -37,7 +37,7 @@
         <div class="col-sm-3 col-lg-2">
         </div>
       </div>
-      <div class="row">
+      {{-- <div class="row">
         <div class="col-sm-3 col-lg-2"></div>
         <div class="col-sm-6 col-lg-8">
           <div class="card">
@@ -72,7 +72,7 @@
           </div>
         </div>
         <div class="col-sm-3 col-lg-2"></div>
-      </div>
+      </div> --}}
       <div class="row text-center">
 
       <small class="text-center">If. you have any question or something goes wrong, please contact our support team with contact form.</small>
