@@ -45,7 +45,7 @@ class WasabiController extends Controller
 
                 if ($extension === 'mp4') {
                     $ffprobe = FFProbe::create();
-                    $video = $ffprobe->streams('https://vplayer.veenix.online/storage/' . $extension . '/' . $fileName)->videos()->first();
+                    $video = $ffprobe->streams('storage/' . $extension . '/' . $fileName)->videos()->first();
                     $res = $video->get('height');
                 } else {
                     $res = null;
@@ -149,9 +149,8 @@ class WasabiController extends Controller
 
         return redirect(Storage::disk('wasabi')->temporaryUrl(
             "public/" . $data->type . "/" . $data->filename,
-            now()->addMinutes(5),
+            now()->addHour(),
             [
-                'ResponseContentType' => 'application/octet-stream',
                 'ResponseContentDisposition' => 'attachment'
             ]
         ));

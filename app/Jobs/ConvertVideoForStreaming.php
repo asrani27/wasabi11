@@ -38,7 +38,14 @@ class ConvertVideoForStreaming implements ShouldQueue
             ->toDisk('videos')
             ->save('stream/' . $this->video->short_file . '/' . $this->video->short_file . '.m3u8');
 
+        $allFiles = Storage::disk('videos')->allFiles($this->video->shot_file);
 
-        // Storage::disk('wasabi')->put('public/' . $this->file->type . '/' . $this->file->filename, $files);
+        foreach ($allFiles as $key => $file) {
+            $data = Storage::disk('videos')->get($file);
+            Storage::disk('wasabi')->put($file, $data);
+        }
+
+        //delete di local]
+        // Storage::disk('public')->delete($this->file->type . '/' . $this->file->filename);
     }
 }
