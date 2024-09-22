@@ -61,8 +61,8 @@ class ConvertVideoForStreaming implements ShouldQueue
             $data = Storage::disk('videos')->get($file);
 
             Storage::disk('s3')->put($file, $data);
-
-            $data->delete();
         }
+
+        Storage::disk('public')->deleteDirectory('stream/' . $this->video->short_file);
     }
 }

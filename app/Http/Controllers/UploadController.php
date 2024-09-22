@@ -9,6 +9,7 @@ class UploadController extends Controller
 {
     public function upload()
     {
+        Storage::disk('public')->deleteDirectory('stream/' . 'Trfp7VsiaG');
         return view('upload');
         // $files = Storage::disk('public')->get('cloud.jpg');
 
