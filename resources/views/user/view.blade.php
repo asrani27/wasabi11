@@ -15,15 +15,14 @@
             <h3 class="card-title">{{$data->original_file}}</h3>
         </div>
         <div class="card-body text-center">
-            
-            @if ($data->type != 'mp4')
-            <div style="padding-top:10%; padding-bottom:10%"><strong>No Preview This File</strong></div>
-            @else
+            @if ($data->type === 'mp4' || $data->type === 'mkv')
             <iframe style="width: 100%; height: 80%; overflow: hidden;" frameBorder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" src="/stream/{{$data->short_file}}"></iframe>
+            @else
+            <div style="padding-top:10%; padding-bottom:10%"><strong>No Preview This File</strong></div>
             @endif
         </div>
 
-        @if ($data->type == 'mp4')
+        @if ($data->type === 'mp4' || $data->type === 'mkv')
         <div class="card-footer">
             <strong>Embed Code :</strong>
             <textarea class="form-control" disabled rows="4"><iframe height="360" width="640" frameBorder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" src="https://vplayer.veenix.online/stream/{{$data->short_file}}"></iframe>

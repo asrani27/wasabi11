@@ -31,18 +31,36 @@ class ConvertVideoForStreaming implements ShouldQueue
     {
         $BitrateFormat  = (new X264)->setKiloBitrate($this->video->resolusi);
 
+        // FFMpeg::fromDisk('videos')
+        //     ->open($this->video->type . '/' . $this->video->filename)
+        //     ->exportForHLS()
+        //     ->addFormat($BitrateFormat)
+        //     ->toDisk('videos')
+        //     ->save('stream/' . $this->video->short_file . '/' . $this->video->short_file . '.m3u8');
+
+        // $allFiles = Storage::disk('videos')->allFiles($this->video->short_file);
+
+        // foreach ($allFiles as $key => $file) {
+        //     $data = Storage::disk('videos')->get($file);
+        //     Storage::disk('s3')->put('stream/' . $file, $data);
+        // }
+
+        //$format = new X264();
         FFMpeg::fromDisk('videos')
             ->open($this->video->type . '/' . $this->video->filename)
             ->exportForHLS()
             ->addFormat($BitrateFormat)
+            ->setSegmentLength(10)
             ->toDisk('videos')
             ->save('stream/' . $this->video->short_file . '/' . $this->video->short_file . '.m3u8');
 
-        $allFiles = Storage::disk('videos')->allFiles($this->video->short_file);
-
+        $allFiles = Storage::disk('videos')->allFiles('stream/' . $this->video->short_file);
+        //dd($allFiles);
         foreach ($allFiles as $key => $file) {
+
             $data = Storage::disk('videos')->get($file);
-            Storage::disk('s3')->put('stream/' . $file, $data);
+
+            Storage::disk('s3')->put($file, $data);
         }
     }
 }

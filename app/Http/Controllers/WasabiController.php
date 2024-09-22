@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Upload;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
+use FFMpeg\Format\Video\X264;
 use App\Helpers\UploadHandler;
 use Illuminate\Support\Facades\Auth;
 use App\Jobs\ConvertVideoForStreaming;
@@ -12,6 +13,7 @@ use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Storage;
 use App\Jobs\ConvertVideoForDownloading;
 use ProtoneMedia\LaravelFFMpeg\FFMpeg\FFProbe;
+use ProtoneMedia\LaravelFFMpeg\Support\FFMpeg;
 use Pion\Laravel\ChunkUpload\Receiver\FileReceiver;
 use Pion\Laravel\ChunkUpload\Handler\HandlerFactory;
 
@@ -50,7 +52,6 @@ class WasabiController extends Controller
                 } else {
                     $res = null;
                 }
-
 
                 $size = $file->getSize();
 
