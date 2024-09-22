@@ -8,6 +8,7 @@ use App\Http\Controllers\WasabiController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UploaderController;
 use App\Http\Controllers\MediaLibraryController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\ViewController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
 use Illuminate\Support\Facades\Artisan;
@@ -16,6 +17,7 @@ Route::get('/', function () {
     return view('welcome2');
 });
 
+Route::get('/upload', [UploadController::class, 'upload']);
 Route::get('/register', [RegisterController::class, 'index']);
 Route::post('/register', [RegisterController::class, 'store']);
 

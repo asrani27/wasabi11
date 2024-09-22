@@ -43,13 +43,14 @@ class WasabiController extends Controller
                 $path = $disk->putFileAs($extension, $file, $fileName);
                 $shortlink = Str::random(10);
 
-                if ($extension === 'mp4') {
+                if ($extension === 'mp4' || $extension === 'mkv') {
                     $ffprobe = FFProbe::create();
                     $video = $ffprobe->streams('storage/' . $extension . '/' . $fileName)->videos()->first();
                     $res = $video->get('height');
                 } else {
                     $res = null;
                 }
+
 
                 $size = $file->getSize();
 
@@ -63,11 +64,11 @@ class WasabiController extends Controller
                 $new->resolusi = $res;
                 $new->save();
 
-                if ($extension == 'mp4') {
+                if ($extension === 'mp4' || $extension === 'mkv') {
                     ConvertVideoForStreaming::dispatch($new);
-                    //ConvertVideoForDownloading::dispatch($new);
+                    ConvertVideoForDownloading::dispatch($new);
                 } else {
-                    //ConvertVideoForDownloading::dispatch($new);
+                    ConvertVideoForDownloading::dispatch($new);
                 }
 
                 // delete chunked file
