@@ -12,7 +12,7 @@
     <meta charset="utf-8"/>
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
     <meta http-equiv="X-UA-Compatible" content="ie=edge"/>
-    <title>Register NagaraFiles</title>
+    <title>Login</title>
     <!-- CSS files -->
     <link href="/nf/dist/css/tabler.min.css?1692870487" rel="stylesheet"/>
     <link href="/nf/dist/css/tabler-flags.min.css?1692870487" rel="stylesheet"/>
