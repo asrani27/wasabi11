@@ -16,7 +16,14 @@
         </div>
         <div class="card-body text-center">
             @if ($data->type === 'mp4' || $data->type === 'mkv')
-            <iframe style="width: 100%; height: 80%; overflow: hidden;" frameBorder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" src="/stream/{{$data->short_file}}"></iframe>
+                @if ($data->status_stream == null)
+                <div class="text-secondary mb-3">Preparing For Video Streaming</div>
+                <div class="progress progress-sm">
+                    <div class="progress-bar progress-bar-indeterminate"></div>
+                </div>
+                @else
+                <iframe style="width: 100%; height: 80%; overflow: hidden;" frameBorder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" src="/stream/{{$data->short_file}}"></iframe>
+                @endif
             @else
             <div style="padding-top:10%; padding-bottom:10%"><strong>No Preview This File</strong></div>
             @endif
@@ -72,7 +79,16 @@
             </div>
         </div>
         <div class="card-footer text-center">
+
+            @if ($data->status_download == null)
+            <div class="text-secondary mb-3">Preparing Link Download</div>
+            <div class="progress progress-sm">
+                <div class="progress-bar progress-bar-indeterminate"></div>
+            </div>
+            @else
+
             <a href="/download/{{$data->id}}" class="btn btn-lg btn-block btn-primary">DOWNLOAD NOW &nbsp; <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg></a>
+            @endif
         </div>
     </div>
 </div>
