@@ -86,8 +86,10 @@
                 <div class="progress-bar progress-bar-indeterminate"></div>
             </div>
             @else
-
-            <a href="/download/{{$data->id}}" class="btn btn-lg btn-block btn-primary">DOWNLOAD NOW &nbsp; <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg></a>
+            <a id="downloadLink" href="javascript:void(0);" onclick="handleAdClick();" class="btn btn-lg btn-block btn-primary">
+                DOWNLOAD NOW &nbsp; <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
+            </a>
+            <a id="realDownloadLink" class="btn btn-lg btn-block btn-primary" href="/download/{{$data->id}}" style="display:none;">DOWNLOAD NOW &nbsp; <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg></a>
             @endif
         </div>
     </div>
@@ -108,8 +110,16 @@
  if(statusStream === null){
     setTimeout(function() {
         location.reload();
-    }, 5000);
+    }, 10000);
  }
 
+ function handleAdClick() {
+    // Buka iklan di tab baru
+    window.open('https://www.cpmrevenuegate.com/bq5r5uxdas?key=ad0d6295c26f7e6b4132733881bc9dee', '_blank');
+
+    // Sembunyikan tombol iklan dan tampilkan link download file
+    document.getElementById('downloadLink').style.display = 'none';
+    document.getElementById('realDownloadLink').style.display = 'inline'; // Tampilkan link
+}
 </script>
 @endpush
