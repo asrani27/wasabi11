@@ -95,5 +95,21 @@
 @endsection
 
 @push('js')
+<script>
+ const data = {!!json_encode($data)!!}
+ var statusDownload = data.status_download;
+ var statusStream = data.status_stream;
+ if(statusDownload === null){
+    setTimeout(function() {
+        location.reload();
+    }, 5000);
+ }
 
+ if(statusStream === null){
+    setTimeout(function() {
+        location.reload();
+    }, 5000);
+ }
+
+</script>
 @endpush
