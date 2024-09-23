@@ -49,6 +49,8 @@ class ConvertVideoForStreaming implements ShouldQueue
         }
 
         Storage::disk('public')->deleteDirectory('stream/' . $this->video->short_file);
+
+        $this->video->update(['status_stream' => 1]);
         //delete di local]
         Storage::disk('public')->delete($this->file->type . '/' . $this->file->filename);
     }
