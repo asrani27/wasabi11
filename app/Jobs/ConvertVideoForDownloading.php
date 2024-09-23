@@ -31,6 +31,6 @@ class ConvertVideoForDownloading implements ShouldQueue
 
         Storage::disk('s3')->put('download/' . $this->file->type . '/' . $this->file->filename, $files);
 
-        $this->video->update(['status_download' => 1]);
+        $this->file->update(['status_download' => 1]);
     }
 }
