@@ -31,7 +31,5 @@ class ConvertVideoForDownloading implements ShouldQueue
 
         Storage::disk('s3')->put('download/' . $this->file->type . '/' . $this->file->filename, $files);
 
-        //delete di local]
-        Storage::disk('public')->delete($this->file->type . '/' . $this->file->filename);
     }
 }
