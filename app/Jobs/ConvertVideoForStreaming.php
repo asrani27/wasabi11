@@ -17,6 +17,7 @@ class ConvertVideoForStreaming implements ShouldQueue
 {
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
+    public $timeout = 0;
     public $video;
 
     public function __construct(Upload $video)
