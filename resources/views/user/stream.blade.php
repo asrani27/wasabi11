@@ -39,7 +39,7 @@
     height="360"
     data-setup="{}">
             {{-- <source src="{{$public}}" type="application/x-mpegURL" />       --}}
-            <source src="https://sin1.contabostorage.com/be47e31584b1436b879da3e76976fe73:streaming/stream/{{$data->short_file}}/{{$data->short_file}}_0_{{$data->resolusi}}.m3u8" type="application/x-mpegURL" />
+            <source src="{{$mp4TemporaryUrl}}" type="video/mp4" />
             {{-- <track kind="captions" src="/srt/deadpool.vtt" srclang="id" label="Indonesia" default> --}}
     </video>
 </div>
