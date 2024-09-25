@@ -149,11 +149,12 @@ class WasabiController extends Controller
     public function download($id)
     {
         $data = Upload::find($id);
+        $filename = $data->original_file;
         return redirect(Storage::disk('wasabi')->temporaryUrl(
             "download/" . $data->type . "/" . $data->filename,
             now()->addMinutes(240),
             [
-                'ResponseContentDisposition' => 'attachment'
+                'ResponseContentDisposition' => 'attachment; filename="' . $filename . '"'
             ]
         ));
     }
