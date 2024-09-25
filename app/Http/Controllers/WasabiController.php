@@ -148,21 +148,10 @@ class WasabiController extends Controller
 
     public function download($id)
     {
-        $headers = [
-            'Content-Disposition' => 'attachment',
-        ];
         $data = Upload::find($id);
-
-        //$path = Storage::disk('local')->url($data->type . "/" . $data->filename);
-        //return Storage::disk('s3')->get('download/' . $data->type . '/' . $data->filename);
-
-
-        //dd(Storage::disk('public')->url("storage/" . $data->type . "/" . $data->filename));
-        //return Storage::disk('public')->download("storage/" . $data->type . "/" . $data->filename);
-
-        return redirect(Storage::disk('s3')->temporaryUrl(
+        return redirect(Storage::disk('wasabi')->temporaryUrl(
             "download/" . $data->type . "/" . $data->filename,
-            now()->addHour(),
+            now()->addMinutes(240),
             [
                 'ResponseContentDisposition' => 'attachment'
             ]
