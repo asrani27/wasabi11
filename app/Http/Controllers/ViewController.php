@@ -32,7 +32,7 @@ class ViewController extends Controller
         $data       =  Upload::where('short_file', $id)->first();
         $mp4TemporaryUrl = Storage::disk('wasabi')->temporaryUrl(
             "download/" . $data->type . '/' . $data->filename,
-            now()->addMinutes(30) // Expired after 1 hour
+            now()->addMinutes(240) // Expired after 1 hour
         );
         //$public     =  Storage::disk('public')->url("stream/" . $data->short_file . "/" . $data->short_file . "_0_" . $data->resolusi . ".m3u8");
         return view('user.stream', compact('data', 'mp4TemporaryUrl'));
