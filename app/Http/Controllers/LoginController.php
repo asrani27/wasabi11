@@ -33,13 +33,20 @@ class LoginController extends Controller
                 $remember = $req->remember ? true : false;
                 $credential = $req->only('username', 'password');
 
-                if (Auth::attempt($credential, $remember)) {
 
+                if (Auth::attempt($credential, $remember)) {
                     if (Auth::user()->roles == 'user') {
                         return redirect('/user/home');
-                    } else
+                    } elseif (Auth::user()->roles == 'superadmin') {
+                        return redirect('/superadmin/home');
+                    } else {
                         Session::flash('success', 'Selamat Datang');
-                    return 'role lain';
+                        return 'role lain';
+                    }
+                } else {
+
+                    $req->flash();
+                    return back()->with('error', 'Wrong Username Or Password');
                 }
             } else {
                 $req->flash();
@@ -69,6 +76,7 @@ class LoginController extends Controller
                 $newUser = User::create([
                     'name' => $user->name,
                     'email' => $user->email,
+                    'roles' => 'user',
                     'gauth_id' => $user->id,
                     'gauth_type' => 'google',
                     'password' => encrypt('admin@123')

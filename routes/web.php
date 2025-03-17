@@ -2,16 +2,17 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ViewController;
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\UploadController;
 use App\Http\Controllers\WasabiController;
 use App\Http\Controllers\RegisterController;
 use App\Http\Controllers\UploaderController;
+use App\Http\Controllers\SuperadminController;
 use App\Http\Controllers\MediaLibraryController;
-use App\Http\Controllers\UploadController;
-use App\Http\Controllers\ViewController;
 use Illuminate\Foundation\Auth\EmailVerificationRequest;
-use Illuminate\Support\Facades\Artisan;
 
 Route::get('/', function () {
     return view('welcome2');
@@ -36,10 +37,15 @@ Route::get('/email/verification-notification', function () {
     return back()->with('message', 'Verification link sent!');
 })->middleware(['auth', 'throttle:6,1'])->name('verification.send');
 
-Route::middleware(['auth', 'verified'])->group(function () {
+Route::middleware(['auth', 'user', 'verified'])->group(function () {
     Route::get('/user/home', [UserController::class, 'home']);
     Route::get('/user/file/delete/{id}', [UserController::class, 'deleteFile']);
 });
+
+Route::middleware(['auth', 'superadmin', 'verified'])->group(function () {
+    Route::get('/superadmin/home', [SuperadminController::class, 'home']);
+});
+
 Route::get('oauth/google', [LoginController::class, 'redirectToProvider'])->name('oauth.google');
 Route::get('oauth/google/callback', [LoginController::class, 'handleProviderCallback'])->name('oauth.google.callback');
 
