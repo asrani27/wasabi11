@@ -5,9 +5,8 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>VideoJS</title>
+  <title>Stream NagaFile</title>
   <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
-
 
   <style>
     .container {
@@ -29,17 +28,7 @@
       /* Ubah warna teks subtitle */
     }
   </style>
-  <!-- City -->
-  <link href="https://unpkg.com/@videojs/themes@1/dist/city/index.css" rel="stylesheet">
-
-  <!-- Fantasy -->
   <link href="https://unpkg.com/@videojs/themes@1/dist/fantasy/index.css" rel="stylesheet">
-
-  <!-- Forest -->
-  <link href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" rel="stylesheet">
-
-  <!-- Sea -->
-  <link href="https://unpkg.com/@videojs/themes@1/dist/sea/index.css" rel="stylesheet">
 </head>
 
 <body style="margin:0px">
@@ -48,8 +37,6 @@
   <div class="container">
     <video id="my-video" class="video-js vjs-theme-fantasy video" controls preload="auto" width="640" height="360"
       data-setup="{}">
-      {{--
-      <source src="{{$public}}" type="application/x-mpegURL" /> --}}
       <source src="{{$mp4TemporaryUrl}}" type="video/mp4" />
       {{--
       <track kind="captions" src="/srt/deadpool.vtt" srclang="id" label="Indonesia" default> --}}
@@ -62,10 +49,20 @@
     integrity="sha512-M/pHAt5s4Eq/RURcqkUTvoyU8EdtL1mQBdzePGQM03shlMWJpBLNHmzaWaYGLZjJhAl0/C6jYFgf8ncNr2802A=="
     crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
-
-
   <script>
     var player = videojs('my-video');
+    // Saat video diputar, simpan posisi terakhir ke localStorage setiap detik
+    player.on('timeupdate', function () {
+        localStorage.setItem('video-time', player.currentTime());
+    });
+
+    // Saat video siap, cek apakah ada posisi terakhir dan mulai dari sana
+    player.ready(function () {
+        var lastTime = localStorage.getItem('video-time');
+        if (lastTime) {
+            player.currentTime(lastTime);
+        }
+    });
     // var adUrl = 'https://www.cpmrevenuegate.com/bq5r5uxdas?key=ad0d6295c26f7e6b4132733881bc9dee';
 
     // player.one('play', function() {
@@ -119,7 +116,6 @@
         }
     }
     
-
 $(function() {
   const videoContainer = document; // replace this with just immediate container of video player
   $(videoContainer).on('keypress', function() {
