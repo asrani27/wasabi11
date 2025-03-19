@@ -68,6 +68,10 @@
             });
         }
     });
+    // Hapus waktu terakhir jika video selesai
+    player.on('ended', function() {
+        localStorage.removeItem('video-time');
+    });
     // var adUrl = 'https://www.cpmrevenuegate.com/bq5r5uxdas?key=ad0d6295c26f7e6b4132733881bc9dee';
 
     // player.one('play', function() {
