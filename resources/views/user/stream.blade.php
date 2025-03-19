@@ -29,14 +29,24 @@
       /* Ubah warna teks subtitle */
     }
   </style>
+  <!-- City -->
+  <link href="https://unpkg.com/@videojs/themes@1/dist/city/index.css" rel="stylesheet">
 
+  <!-- Fantasy -->
+  <link href="https://unpkg.com/@videojs/themes@1/dist/fantasy/index.css" rel="stylesheet">
+
+  <!-- Forest -->
+  <link href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" rel="stylesheet">
+
+  <!-- Sea -->
+  <link href="https://unpkg.com/@videojs/themes@1/dist/sea/index.css" rel="stylesheet">
 </head>
 
 <body style="margin:0px">
 
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
   <div class="container">
-    <video id="my-video" class="video-js vjs-default-skin video yellow" controls preload="auto" width="640" height="360"
+    <video id="my-video" class="video-js vjs-theme-fantasy video" controls preload="auto" width="640" height="360"
       data-setup="{}">
       {{--
       <source src="{{$public}}" type="application/x-mpegURL" /> --}}

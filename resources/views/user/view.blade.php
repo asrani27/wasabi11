@@ -1,12 +1,11 @@
 @extends('layouts.master')
 @push('css')
-    <style>
-
-    iframe { 
+<style>
+    iframe {
         width: 100%;
         aspect-ratio: 16 / 9;
     }
-    </style>
+</style>
 @endpush
 @section('content')
 <div class="col-md-8">
@@ -16,14 +15,15 @@
         </div>
         <div class="card-body text-center">
             @if ($data->type === 'mp4' || $data->type === 'mkv')
-                @if ($data->status_stream == null)
-                <div class="text-secondary mb-3">Preparing For Video Streaming</div>
-                <div class="progress progress-sm">
-                    <div class="progress-bar progress-bar-indeterminate"></div>
-                </div>
-                @else
-                <iframe style="width: 100%; height: 80%; overflow: hidden;" frameBorder="0" allowfullscreen="true" webkitallowfullscreen="true" mozallowfullscreen="true" src="/stream/{{$data->short_file}}"></iframe>
-                @endif
+            @if ($data->status_stream == null)
+            <div class="text-secondary mb-3">Preparing For Video Streaming</div>
+            <div class="progress progress-sm">
+                <div class="progress-bar progress-bar-indeterminate"></div>
+            </div>
+            @else
+            <iframe style="width: 100%; height: 80%; overflow: hidden;" frameBorder="0" allowfullscreen="true"
+                webkitallowfullscreen="true" mozallowfullscreen="true" src="/stream/{{$data->short_file}}"></iframe>
+            @endif
             @else
             <div style="padding-top:10%; padding-bottom:10%"><strong>No Preview This File</strong></div>
             @endif
@@ -48,22 +48,22 @@
         <div class="card-body">
             <div class="datagrid" style="--tblr-datagrid-item-width:8rem">
                 <div class="datagrid-item">
-                  <div class="datagrid-title">Upload Date</div>
-                  <div class="datagrid-content">{{$data->created_at}}</div>
+                    <div class="datagrid-title">Upload Date</div>
+                    <div class="datagrid-content">{{$data->created_at}}</div>
                 </div>
                 <div class="datagrid-item">
-                  <div class="datagrid-title">Last Download</div>
-                  <div class="datagrid-content">{{$data->last_download}}</div>
+                    <div class="datagrid-title">Last Download</div>
+                    <div class="datagrid-content">{{$data->last_download}}</div>
                 </div>
                 <div class="datagrid-item">
-                  <div class="datagrid-title">File Size</div>
-                  <div class="datagrid-content">{{round($data->size / 1000 /1000)}} MB</div>
+                    <div class="datagrid-title">File Size</div>
+                    <div class="datagrid-content">{{round($data->size / 1000 /1000)}} MB</div>
                 </div>
                 <div class="datagrid-item">
-                  <div class="datagrid-title">Type</div>
-                  <div class="datagrid-content">{{$data->type}}</div>
+                    <div class="datagrid-title">Type</div>
+                    <div class="datagrid-content">{{$data->type}}</div>
                 </div>
-              </div>
+            </div>
         </div>
 
         <div class="card-footer text-end">
@@ -86,11 +86,27 @@
                 <div class="progress-bar progress-bar-indeterminate"></div>
             </div>
             @else
-            <a id="downloadLink" href="javascript:void(0);" onclick="handleAdClick();" class="btn btn-lg btn-block btn-success">
-                DOWNLOAD &nbsp; <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg>
-            </a>
-            <a id="realDownloadLink" class="btn btn-lg btn-block btn-primary" href="/download/{{$data->id}}" style="display:none;">DOWNLOAD FILE &nbsp; <svg  xmlns="http://www.w3.org/2000/svg"  width="24"  height="24"  viewBox="0 0 24 24"  fill="none"  stroke="currentColor"  stroke-width="2"  stroke-linecap="round"  stroke-linejoin="round"  class="icon icon-tabler icons-tabler-outline icon-tabler-download"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" /><path d="M7 11l5 5l5 -5" /><path d="M12 4l0 12" /></svg></a>
-            <br/>click again after the ad appears
+            {{-- <a id="downloadLink" href="javascript:void(0);" onclick="handleAdClick();"
+                class="btn btn-lg btn-block btn-success">
+                DOWNLOAD &nbsp; <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                    <path d="M7 11l5 5l5 -5" />
+                    <path d="M12 4l0 12" />
+                </svg>
+            </a> --}}
+            <a class="btn btn-lg btn-block btn-primary" href="/download/{{$data->id}}">DOWNLOAD
+                FILE &nbsp; <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                    class="icon icon-tabler icons-tabler-outline icon-tabler-download">
+                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                    <path d="M4 17v2a2 2 0 0 0 2 2h12a2 2 0 0 0 2 -2v-2" />
+                    <path d="M7 11l5 5l5 -5" />
+                    <path d="M12 4l0 12" />
+                </svg></a>
+
             @endif
         </div>
     </div>
@@ -99,7 +115,7 @@
 
 @push('js')
 <script>
- const data = {!!json_encode($data)!!}
+    const data = {!!json_encode($data)!!}
  var statusDownload = data.status_download;
  var statusStream = data.status_stream;
  if(statusDownload === null){
