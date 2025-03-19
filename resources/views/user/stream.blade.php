@@ -51,36 +51,26 @@
 
   <script>
     var player = videojs('my-video');
-    // Dapatkan URL video saat ini (atau nama file sebagai ID unik)
-    function getVideoKey() {
-        var videoSrc = player.currentSrc(); // URL video saat ini
-        return 'video-time-' + videoSrc; // Kunci unik berdasarkan video
-    }
     // Saat video diputar, simpan posisi terakhir ke localStorage setiap detik
     player.on('timeupdate', function () {
-      const lastTime = localStorage.getItem(getVideoKey());
+      const lastTime = localStorage.getItem('video-time');
       if (lastTime <= player.currentTime()) {
-         localStorage.setItem(getVideoKey(), player.currentTime());
+        localStorage.setItem('video-time', player.currentTime());
         }
     });
 
     // Saat video siap, cek apakah ada posisi terakhir dan mulai dari sana
     player.ready(function () {
-    const lastTime = localStorage.getItem(getVideoKey());
+    const lastTime = localStorage.getItem('video-time');
     if (lastTime) {
             player.one('play', function () { // Tunggu hingga user klik play
                 player.currentTime(lastTime);
             });
         }
     });
-    // Jika video berubah (episode baru), reset waktu ke 0
-    player.on('loadeddata', function () {
-        player.currentTime(0);
-    });
-
-    // Jika video selesai, hapus waktu terakhirnya
-    player.on('ended', function () {
-        localStorage.removeItem(getVideoKey());
+    // Hapus waktu terakhir jika video selesai
+    player.on('ended', function() {
+        localStorage.removeItem('video-time');
     });
     // var adUrl = 'https://www.cpmrevenuegate.com/bq5r5uxdas?key=ad0d6295c26f7e6b4132733881bc9dee';
 
