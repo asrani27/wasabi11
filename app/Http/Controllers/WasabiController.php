@@ -148,6 +148,7 @@ class WasabiController extends Controller
 
     public function download($id)
     {
+        Upload::findOrFail($id)->increment('download');
         $data = Upload::find($id);
         $filename = $data->original_file;
         return redirect(Storage::disk('wasabi')->temporaryUrl(
