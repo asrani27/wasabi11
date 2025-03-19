@@ -54,8 +54,8 @@
     // Saat video diputar, simpan posisi terakhir ke localStorage setiap detik
     player.on('timeupdate', function () {
       const lastTime = localStorage.getItem('video-time');
-    if (lastTime <= player.currentTime()) {
-      localStorage.setItem('video-time', player.currentTime());
+      if (lastTime <= player.currentTime()) {
+        localStorage.setItem('video-time', player.currentTime());
         }
     });
 
