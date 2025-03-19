@@ -53,12 +53,15 @@
     var player = videojs('my-video');
     // Saat video diputar, simpan posisi terakhir ke localStorage setiap detik
     player.on('timeupdate', function () {
-        localStorage.setItem('video-time', player.currentTime());
+      const lastTime = localStorage.getItem('video-time');
+    if (lastTime <= player.currentTime()) {
+      localStorage.setItem('video-time', player.currentTime());
+        }
     });
 
     // Saat video siap, cek apakah ada posisi terakhir dan mulai dari sana
     player.ready(function () {
-    var lastTime = localStorage.getItem('video-time');
+    const lastTime = localStorage.getItem('video-time');
     if (lastTime) {
             player.one('play', function () { // Tunggu hingga user klik play
                 player.currentTime(lastTime);
