@@ -44,6 +44,7 @@ Route::middleware(['auth', 'user', 'verified'])->group(function () {
 
 Route::middleware(['auth', 'superadmin', 'verified'])->group(function () {
     Route::get('/superadmin/home', [SuperadminController::class, 'home']);
+    Route::get('/superadmin/file/delete/{id}', [SuperadminController::class, 'deleteFile']);
 });
 
 Route::get('oauth/google', [LoginController::class, 'redirectToProvider'])->name('oauth.google');
