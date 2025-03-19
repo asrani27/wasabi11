@@ -15,7 +15,14 @@ class LoginController extends Controller
     public function index()
     {
         if (Auth::check()) {
-            return redirect('/user/home');
+            if (Auth::user()->roles == 'user') {
+                return redirect('/user/home');
+            } elseif (Auth::user()->roles == 'superadmin') {
+                return redirect('/superadmin/home');
+            } else {
+                Session::flash('success', 'Selamat Datang');
+                return 'role lain';
+            }
         }
         return view('login');
     }
