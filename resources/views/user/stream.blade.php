@@ -58,9 +58,11 @@
 
     // Saat video siap, cek apakah ada posisi terakhir dan mulai dari sana
     player.ready(function () {
-        var lastTime = localStorage.getItem('video-time');
-        if (lastTime) {
-            player.currentTime(lastTime);
+    var lastTime = localStorage.getItem('video-time');
+    if (lastTime) {
+            player.one('play', function () { // Tunggu hingga user klik play
+                player.currentTime(lastTime);
+            });
         }
     });
     // var adUrl = 'https://www.cpmrevenuegate.com/bq5r5uxdas?key=ad0d6295c26f7e6b4132733881bc9dee';
