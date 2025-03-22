@@ -115,15 +115,15 @@
         }
 
         // 🔥 Cek apakah perangkat adalah mobile
-        function checkDevice() {
-            if (window.innerWidth > 768) {
-                rewindBtn.style.display = "none"; // Sembunyikan rewind di desktop
-                forwardBtn.style.display = "none"; // Sembunyikan forward di desktop
-            } else {
-                rewindBtn.style.display = "flex"; // Tampilkan rewind di mobile
-                forwardBtn.style.display = "flex"; // Tampilkan forward di mobile
-            }
-        }
+        // function checkDevice() {
+        //     if (window.innerWidth > 768) {
+        //         rewindBtn.style.display = "none"; // Sembunyikan rewind di desktop
+        //         forwardBtn.style.display = "none"; // Sembunyikan forward di desktop
+        //     } else {
+        //         rewindBtn.style.display = "flex"; // Tampilkan rewind di mobile
+        //         forwardBtn.style.display = "flex"; // Tampilkan forward di mobile
+        //     }
+        // }
 
         // Panggil saat halaman dimuat
         checkDevice();
