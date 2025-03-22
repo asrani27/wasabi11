@@ -114,23 +114,6 @@
             return 'video-time-' + window.location.href;
         }
 
-        // 🔥 Cek apakah perangkat adalah mobile
-        // function checkDevice() {
-        //     if (window.innerWidth > 768) {
-        //         rewindBtn.style.display = "none"; // Sembunyikan rewind di desktop
-        //         forwardBtn.style.display = "none"; // Sembunyikan forward di desktop
-        //     } else {
-        //         rewindBtn.style.display = "flex"; // Tampilkan rewind di mobile
-        //         forwardBtn.style.display = "flex"; // Tampilkan forward di mobile
-        //     }
-        // }
-
-        // Panggil saat halaman dimuat
-        checkDevice();
-
-        // Panggil ulang saat layar di-resize
-        window.addEventListener('resize', checkDevice);
-
         // Simpan progress terakhir
         player.on('timeupdate', function () {
             localStorage.setItem(getVideoKey(), player.currentTime());
@@ -159,7 +142,7 @@
                 player.play();
                 icon.classList.remove("fa-play");
                 icon.classList.add("fa-pause");
-                hideControlsAfterDelay(); // 🔥 Sembunyikan tombol setelah beberapa detik
+                hideControlsAfterDelay(); // 🔥 Sembunyikan otomatis saat play
             } else {
                 player.pause();
                 icon.classList.remove("fa-pause");
@@ -172,10 +155,12 @@
                 player.pause();
                 icon.classList.remove("fa-play");
                 icon.classList.add("fa-pause");
+                hideControlsAfterDelay(); // 🔥 Sembunyikan otomatis saat play
             } else {
                 player.play();
                 icon.classList.remove("fa-pause");
                 icon.classList.add("fa-play");
+                showControls(); // 🔥 Tetap tampil saat pause
             }
         }
 
@@ -255,6 +240,7 @@
         });
     });
   </script>
+
 
 
 </body>
