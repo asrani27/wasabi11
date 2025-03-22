@@ -98,7 +98,6 @@
       <div id="forwardBtn" class="control-btn"><i class="fas fa-forward"></i></div>
     </div>
   </div>
-
   <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
 
   <script>
