@@ -167,6 +167,17 @@
                 showControls(); // 🔥 Tetap tampil saat pause
             }
         }
+        function togglePlayPause2() {
+            if (player.paused()) {
+                player.pause();
+                icon.classList.remove("fa-play");
+                icon.classList.add("fa-pause");
+            } else {
+                player.play();
+                icon.classList.remove("fa-pause");
+                icon.classList.add("fa-play");
+            }
+        }
 
         // Fungsi rewind (mundur 5 detik)
         function rewind() {
@@ -202,7 +213,7 @@
         // Klik di tengah video untuk play/pause
         player.el().addEventListener('click', function (event) {
             if (event.target.closest('.vjs-control-bar')) return;
-            togglePlayPause();
+            togglePlayPause2();
         });
 
         // Tambahkan support sentuhan (smartphone)
