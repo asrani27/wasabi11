@@ -11,6 +11,8 @@
         "vite": "^5.0"
     },
     "dependencies": {
+        "@video-js-plugins/videojs-rewind-fast-forward": "^1.0.1",
+        "video.js": "^7.21.7",
         "videojs-resolution-switcher": "^0.4.2"
     }
 }

@@ -25,6 +25,27 @@
     .vjs-text-track-display div {
       color: yellow !important;
     }
+
+    .vjs-control-bar {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .vjs-custom-button {
+      font-size: 14px;
+      padding: 5px 10px;
+      margin: 5px;
+      background-color: white;
+      color: black;
+      border-radius: 5px;
+      border: 1px solid black;
+      cursor: pointer;
+    }
+
+    .vjs-custom-button:hover {
+      background-color: white;
+    }
   </style>
 </head>
 
@@ -38,7 +59,13 @@
   <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
 
   <script>
-    const player = videojs('my-video');
+    const player = videojs('my-video', {
+      controlBar: {
+        skipButtons: { forward: 5, backward: 5 },
+        playbackRateMenuButton: true
+      },
+      playbackRates: [0.5, 1, 1.5, 2, 3]
+    });
     const videoKey = 'video-time-' + window.location.href;
 
     player.on('timeupdate', () => {
@@ -80,6 +107,7 @@
       });
       settings.updateDisplay();
     });
+    
   </script>
 </body>
 
