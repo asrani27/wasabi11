@@ -544,11 +544,6 @@
                 const savedTime = parseFloat(localStorage.getItem(STORAGE_KEY)) || 0;
                 if (savedTime > 0 && savedTime < player.duration) {
                   player.currentTime = savedTime;
-                  
-                  // Tampilkan notifikasi
-                  player.tooltip.textContent = `Melanjutkan dari ${formatTime(savedTime)}`;
-                  player.tooltip.show();
-                  setTimeout(() => player.tooltip.hide(), 2000);
                 }
             });
             // Simpan posisi pemutaran secara berkala
