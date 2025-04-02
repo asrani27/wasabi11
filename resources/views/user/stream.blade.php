@@ -22,6 +22,11 @@
       height: 100%;
     }
 
+    .vjs-remaining-time {
+      display: inline-block !important;
+      visibility: visible !important;
+    }
+
     .vjs-text-track-display div {
       color: yellow !important;
     }
@@ -63,6 +68,9 @@
     const player = videojs('my-video', {
       controlBar: {
         skipButtons: { forward: 10, backward: 10 },
+        remainingTimeDisplay: {
+          displayNegative: true, // Tidak menampilkan waktu mundur
+        }
       }
     });
     
