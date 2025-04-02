@@ -510,10 +510,7 @@
                     document.documentElement.style.setProperty('--webkit-text-track-display', 'none');
                 }
             });
-
-            setInterval(function () {
-            }, 900);
-
+            
             /* Progress bar */
             var scrubbingPaused = false;
             var isMobile = IsMobile();
