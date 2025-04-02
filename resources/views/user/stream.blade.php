@@ -62,7 +62,7 @@
   <script>
     const player = videojs('my-video', {
       controlBar: {
-        skipButtons: { forward: 10, backward: 10 }
+        skipButtons: { forward: 10, backward: 10 },
       }
     });
     
