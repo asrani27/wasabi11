@@ -415,6 +415,15 @@
     document.addEventListener("DOMContentLoaded", async function () {
         var video = document.querySelector("video");
         var loadingSpinner = document.getElementById("loading-spinner");
+          
+        // Key untuk localStorage (gunakan hash dari URL video sebagai ID unik)
+        const STORAGE_KEY = `videoPosition_${btoa("{{$mp4TemporaryUrl}}").substring(0, 16)}`;
+
+        // Fungsi format waktu (HH:MM:SS)
+        function formatTime(seconds) {
+          return new Date(seconds * 1000).toISOString().substr(11, 8);
+        }
+
         var fragmentsLoaded = 0;
         var videoplayer = null;
         var isFairplay = false;
@@ -532,8 +541,27 @@
             
             player.on("loadedmetadata", function () {
                 pb.SetDuration(player.duration);
+                 // Lanjutkan dari posisi terakhir jika ada
+                const savedTime = parseFloat(localStorage.getItem(STORAGE_KEY)) || 0;
+                if (savedTime > 0 && savedTime < player.duration) {
+                  player.currentTime = savedTime;
+                  
+                  // Tampilkan notifikasi
+                  player.tooltip.textContent = `Melanjutkan dari ${formatTime(savedTime)}`;
+                  player.tooltip.show();
+                  setTimeout(() => player.tooltip.hide(), 2000);
+                }
             });
+            // Simpan posisi pemutaran secara berkala
+            player.on("timeupdate", function() {
+                  localStorage.setItem(STORAGE_KEY, player.currentTime);
+                });
 
+            // Bersihkan localStorage saat video selesai
+            player.on("ended", function() {
+              localStorage.removeItem(STORAGE_KEY);
+            });
+            
             setInterval(function () {
                 pb.SetCurrentProgress(player.currentTime);
                 pb.SetBufferProgress(player.duration * player.buffered);
@@ -548,19 +576,6 @@
     
   </script>
 
-  <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <defs>
-      <symbol id="chromecast" viewBox="0 0 18 18" width="18px" height="18px">
-        <g transform="matrix(.74895 0 0 .75211 .025316 .025316)" fill="none" fill-rule="evenodd">
-          <path
-            d="m1 18v3h3c0-1.66-1.34-3-3-3zm0-4v2c2.76 0 5 2.24 5 5h2c0-3.87-3.13-7-7-7zm0-4v2c4.97 0 9 4.03 9 9h2c0-6.08-4.93-11-11-11zm20-7h-18c-1.1 0-2 0.9-2 2v3h2v-3h18v14h-7v2h7c1.1 0 2-0.9 2-2v-14c0-1.1-0.9-2-2-2z"
-            fill="#fff" />
-          <rect width="24" height="24" />
-          <g transform="translate(-208,-106)"></g>
-        </g>
-      </symbol>
-    </defs>
-  </svg>
 </body>
 
 </html>
