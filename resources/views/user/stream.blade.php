@@ -62,7 +62,7 @@
   <script>
     const player = videojs('my-video', {
       controlBar: {
-        skipButtons: { forward: 5, backward: 5 }
+        skipButtons: { forward: 10, backward: 10 }
       }
     });
     
@@ -92,9 +92,9 @@
           event.preventDefault();
           player.paused() ? player.play() : player.pause();
         } else if (event.key === 'ArrowRight') {
-          player.currentTime(player.currentTime() + 5);
+          player.currentTime(player.currentTime() + 10);
         } else if (event.key === 'ArrowLeft') {
-          player.currentTime(player.currentTime() - 5);
+          player.currentTime(player.currentTime() - 10);
         }
       }
     });
