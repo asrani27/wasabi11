@@ -6,6 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Stream NagaFile</title>
   <link href="https://vjs.zencdn.net/8.16.1/video-js.css" rel="stylesheet" />
+  <link href="https://unpkg.com/@videojs/themes@1/dist/forest/index.css" rel="stylesheet">
   <link href="https://unpkg.com/@videojs/themes@1/dist/fantasy/index.css" rel="stylesheet">
 
   <style>
@@ -36,23 +37,8 @@
       justify-content: center;
       align-items: center;
     }
-
-    .vjs-custom-button {
-      font-size: 14px;
-      padding: 5px 10px;
-      margin: 5px;
-      background-color: white;
-      color: black;
-      border-radius: 5px;
-      border: 1px solid black;
-      cursor: pointer;
-    }
-
-    .vjs-custom-button:hover {
-      background-color: white;
-    }
   </style>
-  {{-- @vite(['resources/js/app.js', 'resources/css/app.css']) --}}
+
 </head>
 
 <body style="margin:0px;">
@@ -75,7 +61,6 @@
     });
     
     const videoKey = 'video-time-' + window.location.href;
-
 
     player.on('timeupdate', () => {
       localStorage.setItem(videoKey, player.currentTime());
