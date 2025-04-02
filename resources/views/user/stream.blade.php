@@ -47,6 +47,7 @@
       background-color: white;
     }
   </style>
+  {{-- @vite(['resources/js/app.js', 'resources/css/app.css']) --}}
 </head>
 
 <body style="margin:0px;">
@@ -56,16 +57,15 @@
     </video>
   </div>
 
-  <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
 
+  <script src="https://vjs.zencdn.net/8.16.1/video.min.js"></script>
   <script>
     const player = videojs('my-video', {
       controlBar: {
-        skipButtons: { forward: 5, backward: 5 },
-        playbackRateMenuButton: true
-      },
-      playbackRates: [0.5, 1, 1.5, 2, 3]
+        skipButtons: { forward: 5, backward: 5 }
+      }
     });
+    
     const videoKey = 'video-time-' + window.location.href;
 
 

@@ -13,6 +13,7 @@
     "dependencies": {
         "@video-js-plugins/videojs-rewind-fast-forward": "^1.0.1",
         "video.js": "^7.21.7",
+        "videojs-landscape-fullscreen": "^12.3.0",
         "videojs-resolution-switcher": "^0.4.2"
     }
 }
