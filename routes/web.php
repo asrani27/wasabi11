@@ -58,6 +58,7 @@ Route::get('/logout', function () {
 });
 Route::get('/testing', [WasabiController::class, 'convert']);
 Route::get('/stream/{id}', [ViewController::class, 'stream']);
+Route::get('/player/{id}', [ViewController::class, 'player']);
 Route::get('/stream-mobile/{id}', [ViewController::class, 'stream_mobile']);
 Route::get('/download/{id}', [WasabiController::class, 'download']);
 Route::get('/view/{id}', [ViewController::class, 'view']);
