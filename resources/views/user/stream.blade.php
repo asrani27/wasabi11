@@ -68,6 +68,12 @@
     });
     const videoKey = 'video-time-' + window.location.href;
 
+    player.on('pause', function() {
+    if (window.navigator.userAgent.includes("Chrome")) {
+        player.play(); // Paksa play jika dipause oleh debug
+        }
+    });
+
     player.on('timeupdate', () => {
       localStorage.setItem(videoKey, player.currentTime());
     });
