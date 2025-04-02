@@ -49,7 +49,7 @@
   </style>
 </head>
 
-<body>
+<body style="margin:0px;">
   <div class="container">
     <video id="my-video" class="video-js vjs-theme-fantasy video" controls preload="auto" width="640" height="360">
       <source src="{{$mp4TemporaryUrl}}" type="video/mp4" />
