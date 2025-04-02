@@ -446,9 +446,7 @@
         var playOriginal = false;
         var originalUrl = '';
         var urlPlaylistUrl = '';
-        
         var isAdPaused = false;
-        var cjs = null;
         var isAirplayEnabled = false;
 
 
