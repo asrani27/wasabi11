@@ -9,12 +9,21 @@
   <title>Player Veenix</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
+  <script src="https://assets.mediadelivery.net/castjs/5.2.0/cast.min.js"></script>
   <link href="https://assets.mediadelivery.net/rubik.css" rel="stylesheet">
+  <script src="https://assets.mediadelivery.net/hls/1.5.4/hls.min.js"></script>
   <script src="https://assets.mediadelivery.net/plyr/3.7.3.2/plyr.polyfilled.min.js"></script>
+  <script src="https://assets.mediadelivery.net/plyr-plugin-thumbnail.js"></script>
+  <script src="https://assets.mediadelivery.net/session-tracker.js"></script>
   <script src="https://assets.mediadelivery.net/jquery/jquery-3.7.1.min.js" type="text/javascript"></script>
+  <script src="https://assets.mediadelivery.net/chartist.min.js" type="text/javascript"></script>
+  <script src="https://assets.mediadelivery.net/plyr-vr.js" type="text/javascript"></script>
   <link href="https://assets.mediadelivery.net/plyr/3.7.3.2/plyr.css" rel="stylesheet">
+  <link href="https://assets.mediadelivery.net/plyr-vr.css" rel="stylesheet">
   <script src="https://assets.mediadelivery.net/pb.js?v=1"></script>
   <link href="https://assets.mediadelivery.net/pb.css?v=1" rel="stylesheet">
+  <script src="https://assets.mediadelivery.net/playerjs/pjs-implementation.js" type="text/javascript"></script>
+  <script src="https://assets.mediadelivery.net/playerjs/player-0.1.0.min.js" type="text/javascript"></script>
 
 
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
@@ -474,6 +483,7 @@
             }
         }
 
+
         // Deteksi saat fullscreen aktif
         document.addEventListener("fullscreenchange", function () {
             if (document.fullscreenElement) {
@@ -504,8 +514,51 @@
             ],
             settings: ['quality', 'speed', 'loop'],
             speed: { selected: 1, options: [0.5,0.75,1,1.25,1.5,1.75,2,4] },
-           
-            
+            i18n: {
+                restart: 'Restart',
+                rewind: 'Rewind {seektime}s',
+                play: 'Play',
+                pause: 'Pause',
+                fastForward: 'Forward {seektime}s',
+                seek: 'Seek',
+                seekLabel: '{currentTime} of {duration}',
+                played: 'Played',
+                buffered: 'Buffered',
+                currentTime: 'Current time',
+                duration: 'Duration',
+                volume: 'Volume',
+                mute: 'Mute',
+                unmute: 'Unmute',
+                enableCaptions: 'Enable captions',
+                disableCaptions: 'Disable captions',
+                download: 'Download',
+                enterFullscreen: 'Enter fullscreen',
+                exitFullscreen: 'Exit fullscreen',
+                frameTitle: 'Player for {title}',
+                captions: 'Captions',
+                settings: 'Settings',
+                pip: 'PIP',
+                menuBack: 'Go back to previous menu',
+                speed: 'Speed',
+                normal: 'Normal',
+                quality: 'Quality',
+                loop: 'Loop',
+                start: 'Start',
+                end: 'End',
+                all: 'All',
+                reset: 'Reset',
+                disabled: 'Disabled',
+                enabled: 'Enabled',
+                advertisement: 'Ad',
+                qualityBadge: {
+                    2160: '4K',
+                    1440: 'HD',
+                    1080: 'HD',
+                    720: 'HD',
+                    576: 'SD',
+                    480: 'SD',
+                },
+            },
             thumbnail: seek_thumbnail_config,
 
         };
