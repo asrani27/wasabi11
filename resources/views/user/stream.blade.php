@@ -417,8 +417,7 @@
         var loadingSpinner = document.getElementById("loading-spinner");
           
         // Key untuk localStorage (gunakan hash dari URL video sebagai ID unik)
-        const STORAGE_KEY = `videoPosition_${btoa("{{$mp4TemporaryUrl}}").substring(0, 16)}`;
-
+        const STORAGE_KEY = 'video-time-' + window.location.href;
         // Fungsi format waktu (HH:MM:SS)
         function formatTime(seconds) {
           return new Date(seconds * 1000).toISOString().substr(11, 8);
@@ -561,7 +560,7 @@
             player.on("ended", function() {
               localStorage.removeItem(STORAGE_KEY);
             });
-            
+
             setInterval(function () {
                 pb.SetCurrentProgress(player.currentTime);
                 pb.SetBufferProgress(player.duration * player.buffered);
