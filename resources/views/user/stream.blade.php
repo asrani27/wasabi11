@@ -437,7 +437,7 @@
 
         var video = document.getElementById("main-video");
         var loadingSpinner = document.getElementById("loading-spinner");
-
+       
         video.addEventListener("loadeddata", function () {
             loadingSpinner.classList.add("hidden");
         });
@@ -559,7 +559,14 @@
             
         }
     
-        player = new Plyr(video, defaultOptions);
+        player = new Plyr(video, defaultOptions, {
+          loadSprite: false,
+          buffered: { 
+            forward: 10, // Buffer 10 detik ke depan
+            backward: 2  
+          }
+        });
+        
         initPlayer();
         
     });
