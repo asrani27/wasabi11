@@ -36,7 +36,7 @@ class ViewController extends Controller
         if (!session()->has("video_url_{$id}")) {
             $mp4TemporaryUrl = Storage::disk('wasabi')->temporaryUrl(
                 $filePath,
-                now()->addMinutes(480) // Expired in 2 hours
+                now()->addMinutes(480) // Expired in 4 hours
             );
 
             // Simpan di session
