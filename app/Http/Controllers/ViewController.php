@@ -34,7 +34,7 @@ class ViewController extends Controller
             "download/" . $data->type . '/' . $data->filename,
             now()->addMinutes(480) // Expired after 1 hour
         );
-        //$public     =  Storage::disk('public')->url("stream/" . $data->short_file . "/" . $data->short_file . "_0_" . $data->resolusi . ".m3u8");
+
         return view('user.stream', compact('data', 'mp4TemporaryUrl'));
     }
     public function player($id)

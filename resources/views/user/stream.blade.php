@@ -399,8 +399,8 @@
 <body id="body">
   <div class="container" id="video-container">
     <div id="loading-spinner" class="loading-spinner"></div>
-    <video id="main-video" preload="auto" crossorigin none data-plyr-config='{ "title": "vidio.mp4" }' playsinline
-      data-poster="">
+    <video id="main-video" preload="metada" crossorigin="anonymous" data-plyr-config='{ "title": "vidio.mp4" }'
+      playsinline data-poster="">
       <source src="{{$mp4TemporaryUrl}}" type="video/mp4" />
     </video>
   </div>
