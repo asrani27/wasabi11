@@ -559,7 +559,13 @@
             
         }
     
-        player = new Plyr(video, defaultOptions);
+        player = new Plyr(video, defaultOptions, {
+          loadSprite: false,
+          buffered: { 
+            forward: 10, // Buffer 10 detik ke depan
+            backward: 2  
+          }
+        });
         
         initPlayer();
         
