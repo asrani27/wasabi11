@@ -8,12 +8,12 @@
   <META NAME="GOOGLEBOT" CONTENT="NOINDEX" />
   <title>Veenix Player</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-  <link href="https://assets.mediadelivery.net/rubik.css" rel="stylesheet">
-  <script src="https://assets.mediadelivery.net/plyr/3.7.3.2/plyr.polyfilled.min.js"></script>
-  <script src="https://assets.mediadelivery.net/jquery/jquery-3.7.1.min.js" type="text/javascript"></script>
-  <link href="https://assets.mediadelivery.net/plyr/3.7.3.2/plyr.css" rel="stylesheet">
-  <script src="https://assets.mediadelivery.net/pb.js?v=1"></script>
-  <link href="https://assets.mediadelivery.net/pb.css?v=1" rel="stylesheet">
+  <link href="/plyr/rubik.css" rel="stylesheet">
+  <script src="/plyr/plyr.polyfilled.min.js"></script>
+  <script src="/plyr/jquery-3.7.1.min.js" type="text/javascript"></script>
+  <link href="/plyr/plyr.css" rel="stylesheet">
+  <script src="/plyr/pb.js?v=1"></script>
+  <link href="/plyr/pb.css?v=1" rel="stylesheet">
   <meta name="description" content="" />
   <style>
     * {
