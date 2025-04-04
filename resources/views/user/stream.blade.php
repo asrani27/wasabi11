@@ -520,19 +520,30 @@
         player = new Plyr(video, defaultOptions);
         initPlayer();
         
-        // Toggle play/pause ketika tombol Space ditekan
         document.addEventListener("keydown", function (e) {
-            if (e.code === "Space" || e.key === " ") {
-                e.preventDefault(); // Hindari scroll jika space ditekan
-                if (player) {
+            if (!player) return;
+
+            switch (e.code) {
+                case "Space":
+                case "Spacebar": // untuk kompatibilitas lama
+                    e.preventDefault(); // Hindari scroll
                     if (player.playing) {
                         player.pause();
                     } else {
                         player.play();
                     }
-                }
+                    break;
+                case "ArrowRight":
+                    e.preventDefault();
+                    player.forward(10); // maju 10 detik
+                    break;
+                case "ArrowLeft":
+                    e.preventDefault();
+                    player.rewind(10); // mundur 10 detik
+                    break;
             }
         });
+
     });
   </script>
 
