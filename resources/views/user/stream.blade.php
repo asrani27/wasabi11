@@ -519,7 +519,7 @@
   
         player = new Plyr(video, defaultOptions);
         initPlayer();
-        
+
         document.addEventListener("keydown", function (e) {
             if (!player) return;
 
@@ -540,6 +540,14 @@
                 case "ArrowLeft":
                     e.preventDefault();
                     player.rewind(10); // mundur 10 detik
+                     break;
+                case "ArrowUp":
+                    e.preventDefault();
+                    player.volume = Math.min(player.volume + 0.1, 1); // naik volume 10%
+                    break;
+                case "ArrowDown":
+                    e.preventDefault();
+                    player.volume = Math.max(player.volume - 0.1, 0); // turun volume 10%
                     break;
             }
         });
