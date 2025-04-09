@@ -9,7 +9,7 @@
   <title>Veenix Player</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <link href="/plyr/rubik.css" rel="stylesheet">
-  <script src="/plyr/plyr.polyfilled.min.js"></script>
+  {{-- <script src="/plyr/plyr.polyfilled.min.js"></script> --}}
   <script src="/plyr/jquery-3.7.1.min.js" type="text/javascript"></script>
   <link href="/plyr/plyr.css" rel="stylesheet">
   <script src="/plyr/pb.js?v=1"></script>
@@ -399,18 +399,47 @@
 <body id="body">
   <div class="container" id="video-container">
     <div id="loading-spinner" class="loading-spinner"></div>
+
+
+    {{-- <video id="player" controls></video> --}}
+
+
     <video id="main-video" preload="auto" crossorigin="anonymous" data-plyr-config='{ "title": "vidio.mp4" }'
       playsinline data-poster="">
-      <source src="{{$mp4TemporaryUrl}}" type="video/mp4" />
+      {{--
+      <source src="/storage/mp4/outputs1.m3u8" type="video/mp4" /> --}}
     </video>
   </div>
+
+  <!-- Plyr JS -->
+  <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js"></script>
+
+  <!-- HLS.js -->
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <script>
     document.addEventListener("DOMContentLoaded", async function () {
         var video = document.getElementById("main-video");
         var loadingSpinner = document.getElementById("loading-spinner");
-  
+        
+        const videoSrc = "{{ asset('storage/suro/outputsatusuroo.m3u8') }}"; // path file m3u8 kamu
+         // Cek apakah browser support HLS.js
+        if (Hls.isSupported()) {
+          const hls = new Hls();
+          hls.loadSource(videoSrc);
+          hls.attachMedia(video);
+          hls.on(Hls.Events.MANIFEST_PARSED, function () {
+            video.play();
+          });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+          // Untuk Safari / iOS
+          video.src = videoSrc;
+          video.addEventListener('loadedmetadata', function () {
+            video.play();
+          });
+        }
+
         const STORAGE_KEY = 'video-time-' + window.location.href;
-  
+
         video.addEventListener("loadeddata", function () {
             loadingSpinner.classList.add("hidden");
         });
