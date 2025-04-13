@@ -2,7 +2,6 @@
 <html>
 
 <head>
-  <!--@formatter:off -->
   <meta charset="UTF-8" />
   <meta name="robots" content="noindex" />
   <META NAME="GOOGLEBOT" CONTENT="NOINDEX" />
