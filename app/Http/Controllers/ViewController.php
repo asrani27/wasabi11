@@ -33,17 +33,17 @@ class ViewController extends Controller
         $filePath = "download/" . $data->type . '/' . $data->filename;
 
         // Cek apakah URL sudah ada di session
-        // if (!session()->has("video_url_{$id}")) {
-        //     $mp4TemporaryUrl = Storage::disk('wasabi')->temporaryUrl(
-        //         $filePath,
-        //         now()->addMinutes(480) // Expired in 4 hours
-        //     );
-        //     // Simpan di session
-        //     session(["video_url_{$id}" => $mp4TemporaryUrl]);
-        // } else {
-        //     $mp4TemporaryUrl = session("video_url_{$id}");
-        // }
-        $mp4TemporaryUrl = '/storage/suro/outputsatusuroo.m3u8';
+        if (!session()->has("video_url_{$id}")) {
+            $mp4TemporaryUrl = Storage::disk('wasabi')->temporaryUrl(
+                $filePath,
+                now()->addMinutes(480) // Expired in 4 hours
+            );
+            // Simpan di session
+            session(["video_url_{$id}" => $mp4TemporaryUrl]);
+        } else {
+            $mp4TemporaryUrl = session("video_url_{$id}");
+        }
+        //$mp4TemporaryUrl = '/storage/suro/outputsatusuroo.m3u8';
 
         return view('user.stream', compact('data', 'mp4TemporaryUrl'));
     }
