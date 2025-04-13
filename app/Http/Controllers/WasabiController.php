@@ -67,8 +67,8 @@ class WasabiController extends Controller
 
                 if ($extension === 'mp4' || $extension === 'mkv') {
                     //OptimizeVideo::dispatch($new);
-                    ConvertVideoForDownloading::dispatch($new);
-                    // ConvertVideoForStreaming::dispatch($new);
+                    // ConvertVideoForDownloading::dispatch($new);
+                    ConvertVideoForStreaming::dispatch($new);
                 } else {
                     ConvertVideoForDownloading::dispatch($new);
                 }

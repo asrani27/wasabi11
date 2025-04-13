@@ -4,6 +4,7 @@ namespace App\Jobs;
 
 use App\Models\Upload;
 use FFMpeg\Format\Video\X264;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
@@ -18,11 +19,11 @@ class ConvertVideoForStreaming implements ShouldQueue
     use Dispatchable, InteractsWithQueue, Queueable, SerializesModels;
 
     public $timeout = 0;
-    public $video;
+    public $file;
 
-    public function __construct(Upload $video)
+    public function __construct(Upload $file)
     {
-        $this->video = $video;
+        $this->file = $file;
     }
 
     /**
@@ -30,15 +31,38 @@ class ConvertVideoForStreaming implements ShouldQueue
      */
     public function handle(): void
     {
-        $BitrateFormat  = (new X264)->setKiloBitrate($this->video->resolusi);
+        try {
+            $filename = $this->file->short_file;
+            $outputFolder = 'hls/' . $filename;
+            Storage::disk('public')->deleteDirectory($outputFolder);
 
-        FFMpeg::fromDisk('videos')
-            ->open($this->video->type . '/' . $this->video->filename)
-            ->exportForHLS()
-            ->addFormat($BitrateFormat)
-            ->setSegmentLength(10)
-            ->toDisk('videos')
-            ->save('stream/' . $this->video->short_file . '/' . $this->video->short_file . '.m3u8');
+            $BitrateFormat = (new X264)->setKiloBitrate($this->file->resolusi);
+
+            FFMpeg::fromDisk('videos')
+                ->open($this->file->type . '/' . $this->file->filename)
+                ->exportForHLS()
+                ->addFormat($BitrateFormat)
+                ->save("{$outputFolder}/playlist.m3u8");
+        } catch (\Exception $e) {
+            // Menyimpan error ke log
+            dd($e->getMessage());
+
+            // Atau kalau kamu ingin melempar ulang agar job dianggap gagal dan bisa retry
+            throw $e;
+        }
+
+
+
+
+        // $BitrateFormat  = (new X264)->setKiloBitrate($this->video->resolusi);
+
+        // FFMpeg::fromDisk('videos')
+        //     ->open($this->video->type . '/' . $this->video->filename)
+        //     ->exportForHLS()
+        //     ->addFormat($BitrateFormat)
+        //     ->setSegmentLength(10)
+        //     ->toDisk('videos')
+        //     ->save('stream/' . $this->video->short_file . '/' . $this->video->short_file . '.m3u8');
 
         // $allFiles = Storage::disk('videos')->allFiles('stream/' . $this->video->short_file);
 
