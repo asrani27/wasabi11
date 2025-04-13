@@ -9,7 +9,7 @@
   <title>Veenix Player</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
   <link href="/plyr/rubik.css" rel="stylesheet">
-  {{-- <script src="/plyr/plyr.polyfilled.min.js"></script> --}}
+  <script src="/plyr/plyr.polyfilled.min.js"></script>
   <script src="/plyr/jquery-3.7.1.min.js" type="text/javascript"></script>
   <link href="/plyr/plyr.css" rel="stylesheet">
   <script src="/plyr/pb.js?v=1"></script>
@@ -401,187 +401,170 @@
     <div id="loading-spinner" class="loading-spinner"></div>
 
 
-    {{-- <video id="player" controls></video> --}}
+
 
 
     <video id="main-video" preload="auto" crossorigin="anonymous" data-plyr-config='{ "title": "vidio.mp4" }'
       playsinline data-poster="">
-      {{--
-      <source src="/storage/mp4/outputs1.m3u8" type="video/mp4" /> --}}
+      <source src="{{$mp4TemporaryUrl}}" type="video/mp4" />
+
     </video>
   </div>
 
-  <!-- Plyr JS -->
-  <script src="https://cdn.jsdelivr.net/npm/plyr@3.7.8/dist/plyr.polyfilled.min.js"></script>
 
-  <!-- HLS.js -->
-  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+
+
+
+
   <script>
     document.addEventListener("DOMContentLoaded", async function () {
         var video = document.getElementById("main-video");
         var loadingSpinner = document.getElementById("loading-spinner");
-        
-        const videoSrc = "{{ asset('storage/suro/outputsatusuroo.m3u8') }}"; // path file m3u8 kamu
-         // Cek apakah browser support HLS.js
-        if (Hls.isSupported()) {
-          const hls = new Hls();
-          hls.loadSource(videoSrc);
-          hls.attachMedia(video);
-          hls.on(Hls.Events.MANIFEST_PARSED, function () {
-            video.play();
-          });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-          // Untuk Safari / iOS
-          video.src = videoSrc;
-          video.addEventListener('loadedmetadata', function () {
-            video.play();
-          });
-        }
-
+  
         const STORAGE_KEY = 'video-time-' + window.location.href;
+  
+  video.addEventListener("loadeddata", function () {
+      loadingSpinner.classList.add("hidden");
+  });
 
-        video.addEventListener("loadeddata", function () {
-            loadingSpinner.classList.add("hidden");
-        });
-  
-        video.addEventListener("click", function () {
-            enterFullscreen();
-        });
-  
-        function enterFullscreen() {
-            if (video.requestFullscreen) {
-                video.requestFullscreen();
-            } else if (video.webkitRequestFullscreen) {
-                video.webkitRequestFullscreen();
-            } else if (video.msRequestFullscreen) {
-                video.msRequestFullscreen();
-            }
-  
-            if (screen.orientation && screen.orientation.lock) {
-                screen.orientation.lock("landscape").catch(function (error) {
-                    console.log("Tidak dapat mengunci orientasi: ", error);
-                });
-            }
-        }
-  
-        document.addEventListener("fullscreenchange", function () {
-            if (document.fullscreenElement) {
-                console.log("Fullscreen aktif, mengunci orientasi ke landscape...");
-                if (screen.orientation && screen.orientation.lock) {
-                    screen.orientation.lock("landscape").catch(function (error) {
-                        console.log("Gagal mengunci orientasi: ", error);
-                    });
-                }
-            }
-        });
-  
-        var defaultOptions = {
-            storage: {
-                enabled: true,
-                key: 'plyr--lib-1300'
-            },
-            fullscreen: {
-                enabled: true,
-                fallback: true,
-                iosNative: true
-            },
-            iconUrl: '/plyr/plyr.svg',
-            captions: { active: false, language: '', update: true },
-            controls: [
-                "play-large","play","rewind","fast-forward","progress","current-time","volume","settings","fullscreen"
-            ],
-            settings: ['quality', 'speed', 'loop'],
-            speed: { selected: 1, options: [0.5,0.75,1,1.25,1.5,1.75,2,4] },
-        };
-  
-        function initPlayer() {
-            player.elements.captions.dir = "auto";
-            $('<div class="plyr__controls__item hide_mobile plyr__spacer"></div>').insertBefore(".plyr__progress__container");
-  
-            $("video").on('webkitbeginfullscreen webkitendfullscreen', function (event) {
-                if (event.type === 'webkitbeginfullscreen') {
-                    document.documentElement.style.setProperty('--webkit-text-track-display', 'block');
-                } else {
-                    document.documentElement.style.setProperty('--webkit-text-track-display', 'none');
-                }
-            });
-  
-            $(".plyr__progress__container input").css("top", "-5px");
-            $(".plyr__progress__container progress").css("top", "4px");
-            $(".plyr__progress__container progress").css("opacity", "0.01");
-            $(".plyr__progress").prepend($('<div class="plyr__pb"></div>'));
-            
-            var pb = new PB(".plyr__pb", ".plyr__progress__container input", {
-                keyColor: "#ff7755",
-                videoLength: 20,
-                chapters: [],
-                moments: [],
-                onScrubbingChange: function(seekTime, offset) {
-                    var thumbWidth = $(".plyr__preview-thumb").width();
-                    var position = Math.max(thumbWidth / 2, offset);
-                    position = Math.min($(".plyr__controls").width() - $(".plyr__preview-thumb").width() + (thumbWidth / 4), position);
-                    $(".plyr__preview-thumb").css("left", (position - 5.5) + "px");
-                }
-            });
-  
-            player.on("loadedmetadata", function () {
-                pb.SetDuration(player.duration);
-                const savedTime = parseFloat(localStorage.getItem(STORAGE_KEY)) || 0;
-                if (savedTime > 0 && savedTime < player.duration) {
-                  player.currentTime = savedTime;
-                }
-            });
-  
-            player.on("timeupdate", function() {
-                localStorage.setItem(STORAGE_KEY, player.currentTime);
-            });
-  
-            player.on("ended", function() {
-              localStorage.removeItem(STORAGE_KEY);
-            });
-  
-            setInterval(function () {
-                pb.SetCurrentProgress(player.currentTime);
-                pb.SetBufferProgress(player.duration * player.buffered);
-            }, 16);
-        }
-  
-        player = new Plyr(video, defaultOptions);
-        initPlayer();
+  video.addEventListener("click", function () {
+      enterFullscreen();
+  });
 
-        document.addEventListener("keydown", function (e) {
-            if (!player) return;
+  function enterFullscreen() {
+      if (video.requestFullscreen) {
+          video.requestFullscreen();
+      } else if (video.webkitRequestFullscreen) {
+          video.webkitRequestFullscreen();
+      } else if (video.msRequestFullscreen) {
+          video.msRequestFullscreen();
+      }
 
-            switch (e.code) {
-                case "Space":
-                case "Spacebar": // untuk kompatibilitas lama
-                    e.preventDefault(); // Hindari scroll
-                    if (player.playing) {
-                        player.pause();
-                    } else {
-                        player.play();
-                    }
-                    break;
-                case "ArrowRight":
-                    e.preventDefault();
-                    player.forward(10); // maju 10 detik
-                    break;
-                case "ArrowLeft":
-                    e.preventDefault();
-                    player.rewind(10); // mundur 10 detik
-                     break;
-                case "ArrowUp":
-                    e.preventDefault();
-                    player.volume = Math.min(player.volume + 0.1, 1); // naik volume 10%
-                    break;
-                case "ArrowDown":
-                    e.preventDefault();
-                    player.volume = Math.max(player.volume - 0.1, 0); // turun volume 10%
-                    break;
-            }
-        });
+      if (screen.orientation && screen.orientation.lock) {
+          screen.orientation.lock("landscape").catch(function (error) {
+              console.log("Tidak dapat mengunci orientasi: ", error);
+          });
+      }
+  }
 
-    });
+  document.addEventListener("fullscreenchange", function () {
+      if (document.fullscreenElement) {
+          console.log("Fullscreen aktif, mengunci orientasi ke landscape...");
+          if (screen.orientation && screen.orientation.lock) {
+              screen.orientation.lock("landscape").catch(function (error) {
+                  console.log("Gagal mengunci orientasi: ", error);
+              });
+          }
+      }
+  });
+
+  var defaultOptions = {
+      storage: {
+          enabled: true,
+          key: 'plyr--lib-1300'
+      },
+      fullscreen: {
+          enabled: true,
+          fallback: true,
+          iosNative: true
+      },
+      iconUrl: '/plyr/plyr.svg',
+      captions: { active: false, language: '', update: true },
+      controls: [
+          "play-large","play","rewind","fast-forward","progress","current-time","volume","settings","fullscreen"
+      ],
+      settings: ['quality', 'speed', 'loop'],
+      speed: { selected: 1, options: [0.5,0.75,1,1.25,1.5,1.75,2,4] },
+  };
+
+  function initPlayer() {
+      player.elements.captions.dir = "auto";
+      $('<div class="plyr__controls__item hide_mobile plyr__spacer"></div>').insertBefore(".plyr__progress__container");
+
+      $("video").on('webkitbeginfullscreen webkitendfullscreen', function (event) {
+          if (event.type === 'webkitbeginfullscreen') {
+              document.documentElement.style.setProperty('--webkit-text-track-display', 'block');
+          } else {
+              document.documentElement.style.setProperty('--webkit-text-track-display', 'none');
+          }
+      });
+
+      $(".plyr__progress__container input").css("top", "-5px");
+      $(".plyr__progress__container progress").css("top", "4px");
+      $(".plyr__progress__container progress").css("opacity", "0.01");
+      $(".plyr__progress").prepend($('<div class="plyr__pb"></div>'));
+      
+      var pb = new PB(".plyr__pb", ".plyr__progress__container input", {
+          keyColor: "#ff7755",
+          videoLength: 20,
+          chapters: [],
+          moments: [],
+          onScrubbingChange: function(seekTime, offset) {
+              var thumbWidth = $(".plyr__preview-thumb").width();
+              var position = Math.max(thumbWidth / 2, offset);
+              position = Math.min($(".plyr__controls").width() - $(".plyr__preview-thumb").width() + (thumbWidth / 4), position);
+              $(".plyr__preview-thumb").css("left", (position - 5.5) + "px");
+          }
+      });
+
+      player.on("loadedmetadata", function () {
+          pb.SetDuration(player.duration);
+          const savedTime = parseFloat(localStorage.getItem(STORAGE_KEY)) || 0;
+          if (savedTime > 0 && savedTime < player.duration) {
+            player.currentTime = savedTime;
+          }
+      });
+
+      player.on("timeupdate", function() {
+          localStorage.setItem(STORAGE_KEY, player.currentTime);
+      });
+
+      player.on("ended", function() {
+        localStorage.removeItem(STORAGE_KEY);
+      });
+
+      setInterval(function () {
+          pb.SetCurrentProgress(player.currentTime);
+          pb.SetBufferProgress(player.duration * player.buffered);
+      }, 16);
+  }
+
+  player = new Plyr(video, defaultOptions);
+  initPlayer();
+
+  document.addEventListener("keydown", function (e) {
+      if (!player) return;
+
+      switch (e.code) {
+          case "Space":
+          case "Spacebar": // untuk kompatibilitas lama
+              e.preventDefault(); // Hindari scroll
+              if (player.playing) {
+                  player.pause();
+              } else {
+                  player.play();
+              }
+              break;
+          case "ArrowRight":
+              e.preventDefault();
+              player.forward(10); // maju 10 detik
+              break;
+          case "ArrowLeft":
+              e.preventDefault();
+              player.rewind(10); // mundur 10 detik
+               break;
+          case "ArrowUp":
+              e.preventDefault();
+              player.volume = Math.min(player.volume + 0.1, 1); // naik volume 10%
+              break;
+          case "ArrowDown":
+              e.preventDefault();
+              player.volume = Math.max(player.volume - 0.1, 0); // turun volume 10%
+              break;
+      }
+  });
+
+});
   </script>
 
 
