@@ -3,6 +3,7 @@
 namespace App\Jobs;
 
 use App\Models\Upload;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Queue\InteractsWithQueue;
@@ -27,14 +28,24 @@ class ConvertVideoForDownloading implements ShouldQueue
     public function handle(): void
     {
 
-        $files = Storage::disk('public')->get($this->file->type . '/' . $this->file->filename);
+        try {
+            $path = $this->file->type . '/' . $this->file->filename;
 
-        Storage::disk('wasabi')->put('download/' . $this->file->type . '/' . $this->file->filename, $files);
+            if (!Storage::disk('public')->exists($path)) {
+                Log::error("File not found: " . $path);
+                return;
+            }
 
-        Storage::disk('public')->delete($this->file->type . '/' . $this->file->filename);
-        $this->file->update([
-            'status_download' => 1,
-            'status_stream' => 1
-        ]);
+            $files = Storage::disk('public')->get($path);
+            Storage::disk('wasabi')->put('download/' . $path, $files);
+            Storage::disk('public')->delete($path);
+
+            $this->file->update([
+                'status_download' => 1,
+                'status_stream' => 1
+            ]);
+        } catch (\Throwable $e) {
+            Log::error('ConvertVideoForDownloading failed: ' . $e->getMessage());
+        }
     }
 }

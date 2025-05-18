@@ -65,6 +65,8 @@ class WasabiController extends Controller
                 $new->resolusi = $res;
                 $new->save();
 
+
+
                 if ($extension === 'mp4' || $extension === 'mkv') {
                     //OptimizeVideo::dispatch($new);
                     ConvertVideoForDownloading::dispatch($new);
@@ -109,7 +111,6 @@ class WasabiController extends Controller
                     ];
                 }
 
-                dd($extension);
                 $disk = Storage::disk('public');
                 $path = $disk->putFileAs($extension, $file, $fileName);
 
