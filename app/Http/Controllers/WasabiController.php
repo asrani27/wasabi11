@@ -65,8 +65,6 @@ class WasabiController extends Controller
                 $new->resolusi = $res;
                 $new->save();
 
-
-
                 if ($extension === 'mp4' || $extension === 'mkv') {
                     //OptimizeVideo::dispatch($new);
                     ConvertVideoForDownloading::dispatch($new);
