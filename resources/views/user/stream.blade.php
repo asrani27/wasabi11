@@ -399,20 +399,9 @@
 <body id="body">
   <div class="container" id="video-container">
     <div id="loading-spinner" class="loading-spinner"></div>
-
-
-
-
-
     <video id="main-video" data-hls-url="{{ $hlsUrl }}" preload="auto" crossorigin="anonymous" playsinline
       data-poster=""></video>
-
   </div>
-
-
-
-
-
 
   <script>
     document.addEventListener("DOMContentLoaded", async function () {
@@ -421,9 +410,6 @@
   
         const STORAGE_KEY = 'video-time-' + window.location.href;
 
-       
-
-  
   video.addEventListener("loadeddata", function () {
       loadingSpinner.classList.add("hidden");
   });
@@ -533,22 +519,41 @@
   
   var source = video.getAttribute('data-hls-url');
 
-        if (Hls.isSupported()) {
-            const hls = new Hls();
-            hls.loadSource(source);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function () {
-                video.play();
-            });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = source;
-            video.addEventListener('loadedmetadata', function () {
-                video.play();
-            });
-        }
+if (Hls.isSupported()) {
+    const hls = new Hls();
 
-  player = new Plyr(video, defaultOptions);
-  initPlayer();
+    hls.loadSource(source);
+    hls.attachMedia(video);
+
+    // 🔍 Tambahkan log saat setiap segmen berhasil diunduh
+    hls.on(Hls.Events.FRAG_LOADED, function (event, data) {
+        console.log('✅ Segment downloaded:', {
+            sequence: data.frag.sn,
+            url: data.frag.url,
+            duration: data.frag.duration,
+            level: data.frag.level
+        });
+    });
+
+    hls.on(Hls.Events.MANIFEST_PARSED, function () {
+        video.play();
+    });
+
+    // 🧠 Simpan ke global scope jika perlu
+    window.hls = hls;
+
+} else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = source;
+    video.addEventListener('loadedmetadata', function () {
+        video.play();
+    });
+}
+
+// 🎬 Inisialisasi Plyr
+const player = new Plyr(video, defaultOptions);
+window.player = player; // opsional jika ingin akses global
+initPlayer();
+
 
   document.addEventListener("keydown", function (e) {
       if (!player) return;
