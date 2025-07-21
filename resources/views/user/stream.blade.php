@@ -519,41 +519,22 @@
   
   var source = video.getAttribute('data-hls-url');
 
-if (Hls.isSupported()) {
-    const hls = new Hls();
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(source);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                video.play();
+            });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = source;
+            video.addEventListener('loadedmetadata', function () {
+                video.play();
+            });
+        }
 
-    hls.loadSource(source);
-    hls.attachMedia(video);
-
-    // 🔍 Tambahkan log saat setiap segmen berhasil diunduh
-    hls.on(Hls.Events.FRAG_LOADED, function (event, data) {
-        console.log('✅ Segment downloaded:', {
-            sequence: data.frag.sn,
-            url: data.frag.url,
-            duration: data.frag.duration,
-            level: data.frag.level
-        });
-    });
-
-    hls.on(Hls.Events.MANIFEST_PARSED, function () {
-        video.play();
-    });
-
-    // 🧠 Simpan ke global scope jika perlu
-    window.hls = hls;
-
-} else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-    video.src = source;
-    video.addEventListener('loadedmetadata', function () {
-        video.play();
-    });
-}
-
-// 🎬 Inisialisasi Plyr
-const player = new Plyr(video, defaultOptions);
-window.player = player; // opsional jika ingin akses global
-initPlayer();
-
+  player = new Plyr(video, defaultOptions);
+  initPlayer();
 
   document.addEventListener("keydown", function (e) {
       if (!player) return;
