@@ -31,6 +31,7 @@ class ViewController extends Controller
     {
 
         $data       =  Upload::where('short_file', $id)->first();
+        $filename = pathinfo($data->filename, PATHINFO_FILENAME);
         // $filePath = "hls/" . $data->short_file . "/playlist_0_800.m3u8";
         // //session()->flush();
         // // Cek apakah URL sudah ada di session
@@ -45,7 +46,8 @@ class ViewController extends Controller
         // } else {
         //     $hlsUrl = session("video_url_{$id}");
         // }
-        $hlsUrl = 'https://cdn.veenix.xyz/veenix/' . $data->filename . '/index.m3u8';
+
+        $hlsUrl = 'https://cdn.veenix.xyz/veenix/' . $filename . '/index.m3u8';
 
         return view('user.stream', compact('data', 'hlsUrl'));
     }
