@@ -13,6 +13,7 @@
   <link href="/plyr/plyr.css" rel="stylesheet">
   <script src="/plyr/pb.js?v=1"></script>
   <link href="/plyr/pb.css?v=1" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
   <meta name="description" content="" />
   <style>
     * {
@@ -403,11 +404,9 @@
 
 
 
-    <video id="main-video" preload="auto" crossorigin="anonymous" data-plyr-config='{ "title": "vidio.mp4" }'
-      playsinline data-poster="">
-      <source src="{{$mp4TemporaryUrl}}" type="video/mp4" />
+    <video id="main-video" data-hls-url="{{ $hlsUrl }}" preload="auto" crossorigin="anonymous" playsinline
+      data-poster=""></video>
 
-    </video>
   </div>
 
 
@@ -421,6 +420,9 @@
         var loadingSpinner = document.getElementById("loading-spinner");
   
         const STORAGE_KEY = 'video-time-' + window.location.href;
+
+       
+
   
   video.addEventListener("loadeddata", function () {
       loadingSpinner.classList.add("hidden");
@@ -527,6 +529,23 @@
           pb.SetBufferProgress(player.duration * player.buffered);
       }, 16);
   }
+    
+  
+  var source = video.getAttribute('data-hls-url');
+
+        if (Hls.isSupported()) {
+            const hls = new Hls();
+            hls.loadSource(source);
+            hls.attachMedia(video);
+            hls.on(Hls.Events.MANIFEST_PARSED, function () {
+                video.play();
+            });
+        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+            video.src = source;
+            video.addEventListener('loadedmetadata', function () {
+                video.play();
+            });
+        }
 
   player = new Plyr(video, defaultOptions);
   initPlayer();

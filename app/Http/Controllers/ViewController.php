@@ -29,23 +29,25 @@ class ViewController extends Controller
     }
     public function stream($id)
     {
+
         $data       =  Upload::where('short_file', $id)->first();
-        $filePath = "download/" . $data->type . '/' . $data->filename;
+        // $filePath = "hls/" . $data->short_file . "/playlist_0_800.m3u8";
+        // //session()->flush();
+        // // Cek apakah URL sudah ada di session
+        // if (!session()->has("video_url_{$id}")) {
+        //     $hlsUrl = Storage::disk('wasabi')->temporaryUrl(
+        //         $filePath,
+        //         now()->addMinutes(480) // Expired in 4 hours
+        //     );
 
-        // Cek apakah URL sudah ada di session
-        if (!session()->has("video_url_{$id}")) {
-            $mp4TemporaryUrl = Storage::disk('wasabi')->temporaryUrl(
-                $filePath,
-                now()->addMinutes(480) // Expired in 4 hours
-            );
-            // Simpan di session
-            session(["video_url_{$id}" => $mp4TemporaryUrl]);
-        } else {
-            $mp4TemporaryUrl = session("video_url_{$id}");
-        }
-        //$mp4TemporaryUrl = '/storage/suro/outputsatusuroo.m3u8';
+        //     // Simpan di session
+        //     session(["video_url_{$id}" => $hlsUrl]);
+        // } else {
+        //     $hlsUrl = session("video_url_{$id}");
+        // }
+        $hlsUrl = 'https://cdn.veenix.xyz/veenix/' . $data->filename . '/index.m3u8';
 
-        return view('user.stream', compact('data', 'mp4TemporaryUrl'));
+        return view('user.stream', compact('data', 'hlsUrl'));
     }
     public function player($id)
     {

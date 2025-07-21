@@ -40,7 +40,7 @@
       data-setup="{}">
       {{--
       <source src="{{$public}}" type="application/x-mpegURL" /> --}}
-      <source src="{{$mp4TemporaryUrl}}" type="video/mp4" />
+      <source src="{{$mp4TemporaryUrl}}" type="application/x-mpegURL">
       {{--
       <track kind="captions" src="/srt/deadpool.vtt" srclang="id" label="Indonesia" default> --}}
     </video>
