@@ -399,8 +399,11 @@
 <body id="body">
   <div class="container" id="video-container">
     <div id="loading-spinner" class="loading-spinner"></div>
-    <video id="main-video" data-hls-url="{{ $hlsUrl }}" preload="auto" crossorigin="anonymous" playsinline
-      data-poster=""></video>
+    <video id="main-video" preload="auto" crossorigin="anonymous" data-plyr-config='{ "title": "vidio.mp4" }'
+      playsinline data-poster="">
+      <source src="{{$hlsUrl}}" type="video/mp4" />
+
+    </video>
   </div>
 
   <script>
@@ -516,22 +519,6 @@
       }, 16);
   }
     
-  
-  var source = video.getAttribute('data-hls-url');
-
-        if (Hls.isSupported()) {
-            const hls = new Hls();
-            hls.loadSource(source);
-            hls.attachMedia(video);
-            hls.on(Hls.Events.MANIFEST_PARSED, function () {
-                video.play();
-            });
-        } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
-            video.src = source;
-            video.addEventListener('loadedmetadata', function () {
-                video.play();
-            });
-        }
 
   player = new Plyr(video, defaultOptions);
   initPlayer();

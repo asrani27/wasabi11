@@ -6,6 +6,7 @@
     "license": "MIT",
     "require": {
         "php": "^8.2",
+        "aws/aws-sdk-php": "^3.351",
         "derekcodes/turnstile-laravel": "^1.1",
         "laravel/framework": "^11.9",
         "laravel/socialite": "^5.16",
