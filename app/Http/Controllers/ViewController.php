@@ -51,41 +51,6 @@ class ViewController extends Controller
 
         return view('user.stream', compact('data', 'hlsUrl'));
     }
-    // public function stream(Request $request, $path)
-    // {
-
-    //     $s3 = new S3Client([
-    //         'version' => 'latest',
-    //         'region' => env('WAS_DEFAULT_REGION'),
-    //         'endpoint' => env('WAS_URL'),
-    //         'credentials' => [
-    //             'key' => env('WAS_ACCESS_KEY_ID'),
-    //             'secret' => env('WAS_SECRET_ACCESS_KEY'),
-    //         ],
-    //     ]);
-
-    //     $bucket = env('WAS_BUCKET');
-
-    //     try {
-    //         $object = $s3->getObject([
-    //             'Bucket' => $bucket,
-    //             'Key'    => 'download/mp4/12b7333eb71b7c5ab6534e1dd4326970.mp4', // contoh: 'download/mp4/video.mp4' atau 'video/index.m3u8'
-    //         ]);
-
-    //         $mime = $object['ContentType'] ?? 'application/octet-stream';
-    //         dd($object);
-    //         return new StreamedResponse(function () use ($object) {
-    //             fpassthru($object['Body']->detach());
-    //         }, 200, [
-    //             'Content-Type' => $mime,
-    //             'Content-Length' => $object['ContentLength'],
-    //             'Accept-Ranges' => 'bytes',
-    //             'Cache-Control' => 'no-cache',
-    //         ]);
-    //     } catch (\Exception $e) {
-    //         return response("❌ Error: " . $e->getMessage(), 404);
-    //     }
-    // }
 
     public function player($id)
     {
